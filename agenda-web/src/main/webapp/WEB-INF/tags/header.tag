@@ -16,7 +16,8 @@
 <script>
 	var url = "${url}";
 </script>
-<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+	charset="UTF-8" />
 <c:forEach items="${scriptlibs}" var="js">
 	<script type="text/javascript" src="${jsLib}${fn:trim(js)}"></script>
 </c:forEach>
@@ -27,6 +28,8 @@
 	<link rel="stylesheet" type="text/css" href="${cssPath}${fn:trim(css)}" />
 </c:forEach>
 <link rel="stylesheet" type="text/css" href="${cssPath}main.css" />
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 </head>
 <body>
 

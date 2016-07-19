@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- NÃO ESTÁ SENDO UTILIZADO! CASO VOLTE A SER UTILIZADO, FAVOR REMOVER 
-	O COMENTÁRIO -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
@@ -29,7 +27,6 @@
 				<entry key="hibernate.event.merge.entity_copy_observer" value="allow" />
 				<entry key="hibernate.dialect" value="${hibernate.dialect}" />
 				<entry key="hibernate.enable_lazy_load_no_trans" value="true" />
-				<entry key="hibernate.hbm2ddl.auto" value="${hibernate.update}" />
 
 				<entry key="hibernate.show_sql" value="${hibernate.show_sql}" />
 				<entry key="hibernate.format_sql" value="${hibernate.format_sql}" />

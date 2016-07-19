@@ -5,4 +5,11 @@
 
 <html:header styles="materialize.css" scripts="materialize.js"
 	title="Lista de alunos"></html:header>
+
+<ul class="collection">
+	<c:forEach items="${alunos}" var="aluno">
+		<html:avatar aluno="${aluno}" />
+	</c:forEach>
+</ul>
+
 <html:footer></html:footer>

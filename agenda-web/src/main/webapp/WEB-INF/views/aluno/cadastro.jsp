@@ -23,9 +23,17 @@
 			<form:select path="nota">
 				<form:options items="${notas}" />
 			</form:select>
+			<label for="nota">Nota</label>
 		</div>
 		<form:button class="btn waves-effect waves-light">Cadastrar</form:button>
 	</form:form>
 </div>
+
+<script>
+	// inicilizando o select
+	$(document).ready(function() {
+		$('select').material_select();
+	});
+</script>
 
 <html:footer></html:footer>
