@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NÃO ESTÁ SENDO UTILIZADO! CASO VOLTE A SER UTILIZADO, FAVOR REMOVER 
+	O COMENTÁRIO -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+ http://www.springframework.org/schema/tx
+ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+	<tx:annotation-driven transaction-manager="jpaTransactionManager" />
+
+	<bean id="hibernateJpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		depends-on="flyway">
+
+		<property name="persistenceUnitName" value="${jpa.persistenceUnitName}" />
+		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter" />
+		<property name="packagesToScan" value="${jpa.packagesToScan}" />
+
+		<property name="jpaPropertyMap">
+			<map>
+				<entry key="hibernate.event.merge.entity_copy_observer" value="allow" />
+				<entry key="hibernate.dialect" value="${hibernate.dialect}" />
+				<entry key="hibernate.enable_lazy_load_no_trans" value="true" />
+				<entry key="hibernate.hbm2ddl.auto" value="${hibernate.update}" />
+
+				<entry key="hibernate.show_sql" value="${hibernate.show_sql}" />
+				<entry key="hibernate.format_sql" value="${hibernate.format_sql}" />
+
+				<entry key="hibernate.connection.provider_class" value="${hibernate.connection.provider.class}" />
+				<entry key="hibernate.hikari.dataSourceClassName" value="${hikari.datasource.class}" />
+				<entry key="hibernate.hikari.dataSource.user" value="${hikari.datasource.user}" />
+				<entry key="hibernate.hikari.dataSource.password" value="${hikari.datasource.password}" />
+				<entry key="hibernate.hikari.dataSource.url" value="${hikari.datasource.url}" />
+
+				<entry key="hibernate.hikari.maximumPoolSize" value="${hikari.pool.maxSize}" />
+				<entry key="hibernate.hikari.connectionTimeout" value="${hikari.pool.timeOut}" />
+				<entry key="hibernate.hikari.poolName" value="${hikari.pool.name}" />
+
+				<entry key="hibernate.hikari.dataSource.cachePrepStmts" value="${hikari.ds.cache.prepStmts}" />
+				<entry key="hibernate.hikari.dataSource.prepStmtCacheSize"
+					value="${hikari.ds.cache.size}" />
+				<entry key="hibernate.hikari.dataSource.prepStmtCacheSqlLimit"
+					value="${hikari.ds.cache.sqlLimit}" />
+				<entry key="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!-- configuração do spring data -->
+	<jpa:repositories base-package="br.com.caelum.alura.db.agenda"
+		entity-manager-factory-ref="entityManagerFactory"
+		transaction-manager-ref="jpaTransactionManager" />
+
+</beans>

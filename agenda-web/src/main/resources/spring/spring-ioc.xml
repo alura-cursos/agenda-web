@@ -1,0 +1,27 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd ">
+
+
+	<context:property-placeholder
+		file-encoding="UTF-8"
+		location="classpath:properties/general.properties, classpath:properties/database.properties,
+	 classpath:properties/flyway.properties, classpath:properties/jpa.properties" />
+
+	<context:annotation-config></context:annotation-config>
+	<context:component-scan base-package="br.com.caelum.alura" />
+
+	<bean id="ObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"
+		scope="request">
+		<aop:scoped-proxy />
+	</bean>
+
+	<import resource="spring-flyway-config.xml" />
+	<import resource="spring-jpa-config.xml" />
+
+</beans>

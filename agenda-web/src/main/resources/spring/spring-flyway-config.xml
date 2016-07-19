@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate">
+		<property name="schemas" value="${flyway.schemas}" />
+		<property name="encoding" value="${flyway.encoding}" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${flyway.datasource.class}" />
+		<property name="url" value="${flyway.datasource.url}" />
+		<property name="username" value="${flyway.datasource.username}" />
+		<property name="password" value="${flyway.datasource.password}" />
+	</bean>
+
+</beans>
