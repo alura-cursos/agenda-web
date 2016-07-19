@@ -9,6 +9,9 @@
 <html:header styles="materialize.min.css"
 	scripts="jquery.js, materialize.min.js" title="Cadastro"></html:header>
 
+<h1 class="header center ">Cadastro de aluno</h1>
+
+
 <div class="row">
 	<form:form action="${actionUrl}" commandName="aluno" class="col s12">
 
@@ -16,14 +19,11 @@
 		<html:input label="Endereço" name="endereco" />
 		<html:input label="Telefone" name="telefone" />
 		<html:input label="Site" name="site" />
-		
-		<form:select path="nota">
-			<form:option value="1" />
-			<form:option value="2" />
-			<form:option value="3" />
-			<form:option value="4" />
-			<form:option value="5" />
-		</form:select>
+		<div class="input-field col s12">
+			<form:select path="nota">
+				<form:options items="${notas}" />
+			</form:select>
+		</div>
 		<form:button class="btn waves-effect waves-light">Cadastrar</form:button>
 	</form:form>
 </div>

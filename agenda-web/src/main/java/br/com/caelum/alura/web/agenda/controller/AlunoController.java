@@ -1,6 +1,7 @@
 package br.com.caelum.alura.web.agenda.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +17,11 @@ import br.com.caelum.alura.core.agenda.model.Aluno;
 public class AlunoController {
 
 	@GetMapping("form")
-	public ModelAndView form() {
-		return new ModelAndView("aluno/cadastro", "aluno", new Aluno());
+	public ModelAndView form(Aluno aluno) {
+		ModelAndView mav = new ModelAndView("aluno/cadastro");
+		mav.addObject("aluno", new Aluno());
+		mav.addObject("notas", new ArrayList<>(Arrays.asList(new Double[] { 1.0, 2.0, 3.0, 4.0, 5.0 })));
+		return mav;
 	}
 
 	@PostMapping

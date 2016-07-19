@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+
+#logo-header {
+	max-height: 50px;
+	margin: 5%;
+}
+
+@media ( max-width : 600px) {
+	#logo-header {
+		max-height: 45px;
+	}
+}

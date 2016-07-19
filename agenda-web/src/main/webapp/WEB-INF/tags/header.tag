@@ -16,7 +16,6 @@
 <script>
 	var url = "${url}";
 </script>
-<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <c:forEach items="${scriptlibs}" var="js">
 	<script type="text/javascript" src="${jsLib}${fn:trim(js)}"></script>
@@ -27,7 +26,24 @@
 <c:forEach items="${styles}" var="css">
 	<link rel="stylesheet" type="text/css" href="${cssPath}${fn:trim(css)}" />
 </c:forEach>
+<link rel="stylesheet" type="text/css" href="${cssPath}main.css" />
 </head>
 <body>
-	<main class="container"> <header class="header">Agenda
-		de alunos - Alura</header>
+
+	<c:url value="/aluno/form" var="cadastro" />
+	<c:url value="/aluno" var="lista" />
+	<c:url value="/" var="index" />
+
+	<header class="header">
+		<nav>
+			<div class="nav-wrapper black">
+				<a href="${index}" class="brand-logo"><img id="logo-header"
+					src="<c:url value='/resources/img/alura-logo-white.png'></c:url>"></a>
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li><a href="${lista}">Alunos</a></li>
+					<li><a href="${cadastro}">Cadastrar</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<main class="container">
