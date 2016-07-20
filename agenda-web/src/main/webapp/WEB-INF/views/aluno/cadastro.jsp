@@ -7,7 +7,7 @@
 <c:url value='/aluno' var="actionUrl" />
 
 <html:header styles="materialize.min.css"
-	scripts="jquery.js, materialize.min.js" title="Cadastro"></html:header>
+	scripts="jquery.js, materialize.min.js, inicializer.js" title="Cadastro"></html:header>
 
 <h1 class="header center ">Cadastro de aluno</h1>
 
@@ -29,11 +29,6 @@
 	</form:form>
 </div>
 
-<script>
-	// inicilizando o select
-	$(document).ready(function() {
-		$('select').material_select();
-	});
-</script>
+
 
 <html:footer></html:footer>

@@ -27,7 +27,7 @@ public class AlunoController {
 	public ModelAndView form(Aluno aluno) {
 		ModelAndView mav = new ModelAndView("aluno/cadastro");
 		mav.addObject("aluno", new Aluno());
-		mav.addObject("notas", AlunoUtils.getNotas());
+		mav.addObject("notas", AlunoUtils.POSSIVEIS_NOTAS);
 		return mav;
 	}
 
