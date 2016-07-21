@@ -23,7 +23,12 @@ public class AlunoService {
 	}
 
 	public List<Aluno> getLista() {
+		System.out.println("total " + getTotal());
 		return (List<Aluno>) alunoRepository.findAll();
+	}
+
+	public long getTotal() {
+		return alunoRepository.count();
 	}
 
 }
