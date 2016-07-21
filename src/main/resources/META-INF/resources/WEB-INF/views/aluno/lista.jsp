@@ -6,6 +6,8 @@
 <html:header styles="materialize.css" scripts="materialize.js"
 	title="Lista de alunos"></html:header>
 
+<h1 class="header center">Alunos</h1>
+
 <ul class="collection">
 	<c:forEach items="${alunos}" var="aluno">
 		<html:avatar aluno="${aluno}" />
