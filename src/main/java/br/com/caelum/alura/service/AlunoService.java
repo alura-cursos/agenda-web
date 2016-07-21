@@ -31,4 +31,12 @@ public class AlunoService {
 		return alunoRepository.count();
 	}
 
+	public void deletar(Long id) {
+		alunoRepository.delete(alunoRepository.findOne(id));
+	}
+
+	public boolean existe(Long id) {
+		return alunoRepository.exists(id);
+	}
+
 }
