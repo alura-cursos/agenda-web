@@ -4,5 +4,9 @@
 .target/
 /target/
 target/
-db*	
+db*
+db.properties
+db.script
+db.lck
+db.log
 .mvn

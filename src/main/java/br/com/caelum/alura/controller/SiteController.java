@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SiteController {
 
 	@RequestMapping("/")
-	public String index(){
-		System.out.println("acessou home");
+	public String index() {
 		return "index";
 	}
 }
