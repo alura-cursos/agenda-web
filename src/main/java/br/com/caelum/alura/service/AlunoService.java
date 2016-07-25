@@ -23,7 +23,6 @@ public class AlunoService {
 	}
 
 	public List<Aluno> getLista() {
-		System.out.println("total " + getTotal());
 		return (List<Aluno>) alunoRepository.findAll();
 	}
 
@@ -37,6 +36,15 @@ public class AlunoService {
 
 	public boolean existe(Long id) {
 		return alunoRepository.exists(id);
+	}
+
+	public Aluno getUltimo() {
+		return alunoRepository.findAllByOrderByIdDesc().get(0);
+	}
+
+	
+	public Aluno getAluno(Long id) {
+		return alunoRepository.findOne(id);
 	}
 
 }

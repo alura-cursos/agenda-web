@@ -5,7 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 @Entity
+@DynamicUpdate(true)
 public class Aluno {
 
 	@Id
@@ -73,5 +76,22 @@ public class Aluno {
 	public void setCaminhoFoto(String caminhoFoto) {
 		this.caminhoFoto = caminhoFoto;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Aluno aluno = (Aluno) obj;
+		if(aluno.id == this.id)
+			return true;
+		return false;
+	}
+	
 
 }

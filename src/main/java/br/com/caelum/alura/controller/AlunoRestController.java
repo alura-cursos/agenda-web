@@ -3,6 +3,7 @@ package br.com.caelum.alura.controller;
 import static br.com.caelum.alura.utils.HTTPValues.JSON;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.PATCH;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
@@ -35,20 +36,31 @@ public class AlunoRestController {
 		return alunoService.getLista();
 	}
 
-	@RequestMapping(method = POST, consumes = JSON)
-	public ResponseEntity<String> inserir(@RequestBody Aluno aluno) {
-		alunoService.salvar(aluno);
-		return new ResponseEntity<String>("aluno cadastrado", HttpStatus.OK);
+	@RequestMapping(value = "{id}", method = GET, produces = JSON)
+	public @ResponseBody Aluno aluno(@PathVariable("id") Long id) {
+		return alunoService.getAluno(id);
 	}
 
-	@RequestMapping(value = "{id}", method = DELETE, consumes = JSON)
-	public ResponseEntity<String> inserir(@PathVariable("id") Long id) {
+	@RequestMapping(method = POST, consumes = JSON, produces = JSON)
+	public @ResponseBody Aluno inserir(@RequestBody Aluno aluno) {
+		alunoService.salvar(aluno);
+		return alunoService.getUltimo();
+	}
+
+	@RequestMapping(value = "{id}", method = DELETE)
+	public ResponseEntity<String> deletar(@PathVariable("id") Long id) {
 		if (alunoService.existe(id)) {
 			alunoService.deletar(id);
 			return new ResponseEntity<String>("aluno deletado", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>("aluno inexistente", HttpStatus.FORBIDDEN);
 		}
+	}
+
+	@RequestMapping(method = PATCH, consumes = JSON, produces = JSON)
+	public @ResponseBody Aluno alterar(@RequestBody Aluno aluno) {
+		alunoService.salvar(aluno);
+		return alunoService.getAluno(aluno.getId());
 	}
 
 }

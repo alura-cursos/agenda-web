@@ -21,7 +21,7 @@ public class AlunoController {
 	public AlunoController(AlunoService alunoService) {
 		this.alunoService = alunoService;
 	}
-
+	
 	@RequestMapping("form")
 	public ModelAndView form(Aluno aluno) {
 		ModelAndView mav = new ModelAndView("aluno/cadastro");

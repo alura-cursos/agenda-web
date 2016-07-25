@@ -39,7 +39,7 @@
 
 	<header class="header">
 		<nav>
-			<div class="nav-wrapper black">
+			<div class="nav-wrapper black z-depth-3">
 				<a href="${index}" class="brand-logo"><img id="logo-header"
 					src="<c:url value='/img/alura-logo-white.png'></c:url>"></a>
 				<ul id="nav-mobile" class="right hide-on-med-and-down">
