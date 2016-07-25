@@ -6,8 +6,7 @@
 
 <c:url value='/aluno' var="actionUrl" />
 
-<html:header styles="materialize.min.css"
-	scripts="jquery.js, materialize.min.js, inicializer.js" title="Cadastro"></html:header>
+<html:header title="Cadastro"></html:header>
 
 <h1 class="header center ">Cadastro de aluno</h1>
 

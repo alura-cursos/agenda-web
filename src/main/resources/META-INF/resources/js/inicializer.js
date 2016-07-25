@@ -4,3 +4,7 @@ $(function(){
 		$('select').material_select();
 	});
 })
+
+$(function(){
+	$(".button-collapse").sideNav();
+});

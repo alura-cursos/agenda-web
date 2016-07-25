@@ -1,25 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="html" tagdir="/WEB-INF/tags/"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<html:header styles="materialize.css" scripts="materialize.js"
-	title="Home"></html:header>
+<html:header title="Home"></html:header>
+
+<c:url value="firebase/config" var="firebase_config" />
+<c:url value="firebase/config" var="firebase_mensagem" />
 
 <h1 class="header center">Firebase</h1>
 
+${sucesso }
+
 <div class="row center">
-	<div class="col s12 m6">
-		<div class="card-panel teal z-depth-1 center">
-			<i class="large material-icons">settings</i>
-			
-			<span class="white-text">Configuração</span>
+	<a href="${firebase_config }">
+		<div class="col s12 m6">
+			<div class="card-panel hoverable z-depth-1 center">
+				<i class="large material-icons ">settings</i>
+				<div class="header ">Configuração</div>
+			</div>
 		</div>
-	</div>
-	<div class="col s12 m6">
-		<div class="card-panel teal z-depth-1">
-			<span class="white-text">Enviar mensagem</span>
+	</a> <a href="${firebase_mensagem }">
+		<div class="col s12 m6">
+			<div class="card-panel hoverable z-depth-1 ">
+				<i class="large material-icons">message</i>
+				<div class="header ">Mensagem</div>
+			</div>
 		</div>
-	</div>
+	</a>
 </div>
 </div>
 

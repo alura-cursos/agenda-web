@@ -28,25 +28,41 @@
 	<link rel="stylesheet" type="text/css" href="${cssPath}${fn:trim(css)}" />
 </c:forEach>
 <link rel="stylesheet" type="text/css" href="${cssPath}main.css" />
+<link rel="stylesheet" type="text/css"
+	href="${cssPath}materialize.min.css" />
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
+<script src="${jsPath}/jquery.js"></script>
+<script src="${jsPath}/materialize.min.js"></script>
+<script src="${jsPath}/inicializer.js"></script>
 </head>
 <body>
 
 	<c:url value="/aluno/form" var="cadastro" />
 	<c:url value="/aluno" var="lista" />
+	<c:url value="/firebase" var="firebase" />
 	<c:url value="/" var="index" />
 
 	<header class="header">
-		<nav>
-			<div class="nav-wrapper black z-depth-3">
-				<a href="${index}" class="brand-logo"><img id="logo-header"
-					src="<c:url value='/img/alura-logo-white.png'></c:url>"></a>
-				<ul id="nav-mobile" class="right hide-on-med-and-down">
-					<li><a href="${lista}">Alunos</a></li>
-					<li><a href="${cadastro}">Cadastrar</a></li>
-				</ul>
-			</div>
-		</nav>
+		<div class="navbar-fixed">
+			<nav>
+				<div class="nav-wrapper black z-depth-3">
+					<a href="${index}" class="brand-logo"><img id="logo-header"
+						src="<c:url value='/img/alura-logo-white.png'></c:url>"></a> <a
+						href="#" data-activates="mobile-demo" class="button-collapse"><i
+						class="material-icons">menu</i></a>
+					<ul class="right hide-on-med-and-down">
+						<li><a href="${cadastro}">Cadastro</a></li>
+						<li><a href="${firebase}">Firebase</a></li>
+						<li><a href="${lista}">Lista</a></li>
+					</ul>
+					<ul class="side-nav" id="mobile-demo">
+						<li><a href="${cadastro}">Cadastro</a></li>
+						<li><a href="${firebase}">Firebase</a></li>
+						<li><a href="${lista}">Lista</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
 	</header>
 	<main class="container">
