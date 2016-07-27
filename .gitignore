@@ -6,3 +6,4 @@
 target/
 /database
 database/
+/.apt_generated/

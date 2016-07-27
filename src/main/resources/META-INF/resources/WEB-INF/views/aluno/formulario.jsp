@@ -11,9 +11,13 @@
 <h1 class="header center ">Cadastro de aluno</h1>
 
 
+
+
 <div class="row">
 	<form:form action="${actionUrl}" commandName="aluno" class="col s12">
-
+		<c:if test="${aluno.id != null }">
+			<form:input type="hidden" path="id" value="${aluno.id }"></form:input>
+		</c:if>
 		<html:input label="Nome" name="nome" />
 		<html:input label="Endereço" name="endereco" />
 		<html:input label="Telefone" name="telefone" />

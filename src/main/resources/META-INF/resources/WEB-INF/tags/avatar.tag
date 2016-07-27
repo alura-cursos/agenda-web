@@ -5,6 +5,8 @@
 <c:url value='/img/person.png' var="foto" />
 <c:url value='aluno' var="edit" />
 
-<li class="collection-item avatar"><img src="${foto}" alt=""
-	class="circle"> <span class="title">${aluno.nome}</span>
-	<p>${aluno.telefone }</p></li>
+<li class="collection-item avatar"><a href="/aluno/${aluno.id}"><img
+		src="${foto}" alt="" class="circle"> <span class="title">${aluno.nome}</span>
+		<p>${aluno.telefone }</p> <i id="lixeira_deleta_aluno"
+		class="secondary-content material-icons"
+		onclick="deleta_aluno(${aluno.id})">delete</i></li>

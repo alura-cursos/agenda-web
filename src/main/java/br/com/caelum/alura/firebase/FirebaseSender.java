@@ -15,9 +15,6 @@ import okhttp3.Response;
 
 public class FirebaseSender {
 
-	private static final String ERROR = "error";
-	private static final String INVALID_REGISTRATION = "InvalidRegistration";
-	private static final String NOT_REGISTERED = "NotRegistered";
 	private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 	private OkHttpClient client = new OkHttpClient();
 	private String URL;
@@ -44,13 +41,8 @@ public class FirebaseSender {
 			mensagem.setTo(dispositivo.getToken());
 			String json = objectMapper.writeValueAsString(mensagem);
 			Request request = createRequestForPOST(json);
-
-			System.out.println(request.url());
-			for (String h : request.headers("Authorization")) {
-				System.out.println(h);
-			}
 			Response response = client.newCall(request).execute();
-			System.out.println("resposta " + response.body().string());
+			response.close();
 		}
 	}
 

@@ -6,17 +6,8 @@ import java.util.Map;
 
 public class Mensagem {
 
-	private Notification notification;
 	private Map<String, Object> data = new HashMap<>();
 	private String to;
-
-	public Notification getNotification() {
-		return notification;
-	}
-
-	public void setNotification(Notification notification) {
-		this.notification = notification;
-	}
 
 	public Map<String, Object> getData() {
 		return Collections.unmodifiableMap(data);

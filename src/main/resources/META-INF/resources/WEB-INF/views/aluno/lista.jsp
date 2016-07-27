@@ -3,8 +3,8 @@
 <%@taglib prefix="html" tagdir="/WEB-INF/tags/"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<html:header styles="materialize.css" scripts="materialize.js"
-	title="Lista de alunos"></html:header>
+<html:header scripts="aluno/deletar_aluno.js" styles="aluno/lista_aluno.css" title="Lista de alunos">
+</html:header>
 
 <h1 class="header center">Alunos</h1>
 
