@@ -14,20 +14,12 @@ ${sucesso }
 
 <div class="row center">
 	<a href="${firebase_config }">
-		<div class="col s12 m6">
+		<div class="col s12 m6 waves-effect waves-light">
 			<div class="card-panel hoverable z-depth-1 center">
 				<i class="large material-icons ">settings</i>
 				<div class="header ">Configuração</div>
 			</div>
 		</div>
-	</a> <a href="${firebase_mensagem }">
-		<div class="col s12 m6">
-			<div class="card-panel hoverable z-depth-1 ">
-				<i class="large material-icons">message</i>
-				<div class="header ">Mensagem</div>
-			</div>
-		</div>
-	</a>
 </div>
 </div>
 

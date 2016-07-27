@@ -18,22 +18,16 @@ import br.com.caelum.alura.firebase.FirebaseConfig;
 public class FirebaseController {
 
 	@RequestMapping(method = GET)
-	public String index() {
-		return "firebase/index";
-	}
-
-	@RequestMapping(value = "config", method = GET)
 	public ModelAndView firebaseConfig() throws IOException {
 		return new ModelAndView("firebase/configuracao", "firebaseConfig", FirebaseConfig.getInstance());
 	}
 
-	@RequestMapping(value = "config", method = POST)
+	@RequestMapping(method = POST)
 	public String salvarFirebaseConfig(@ModelAttribute("firebaseConfig") FirebaseConfig firebaseConfig,
 			RedirectAttributes attributes) throws IOException {
 		firebaseConfig.salvarProperties();
-		attributes.addFlashAttribute("sucesso", "Firebase configurado com sucesso");
+		attributes.addFlashAttribute("info", "Firebase configurado");
 		return "redirect:/firebase";
 	}
 
-	
 }

@@ -7,6 +7,6 @@
 
 <li class="collection-item avatar"><a href="/aluno/${aluno.id}"><img
 		src="${foto}" alt="" class="circle"> <span class="title">${aluno.nome}</span>
-		<p>${aluno.telefone }</p> <i id="lixeira_deleta_aluno"
-		class="secondary-content material-icons"
-		onclick="deleta_aluno(${aluno.id})">delete</i></li>
+		<p>${aluno.telefone }</p></a> <i id="lixeira_deleta_aluno"
+	class="secondary-content material-icons waves-effect waves-light"
+	onclick="deleta_aluno(${aluno.id})">delete</i></li>

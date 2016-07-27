@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.caelum.alura.model.Aluno;
 import br.com.caelum.alura.service.AlunoService;
@@ -48,10 +49,11 @@ public class AlunoController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String salvar(@ModelAttribute("aluno") Aluno aluno) {
+	public String salvar(@ModelAttribute("aluno") Aluno aluno, RedirectAttributes attributes) {
 		alunoService.salvar(aluno);
 		Aluno salvo = alunoService.getUltimo();
 		dispositivoService.notificaNovoRegistro(salvo);
+		attributes.addFlashAttribute("info", "aluno salvo");
 		return "redirect:aluno";
 	}
 

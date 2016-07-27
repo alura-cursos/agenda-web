@@ -6,9 +6,15 @@
 
 <html:header title="Configuração"></html:header>
 
-<c:url value='/firebase/config' var="actionUrl" />
+<c:url value='/firebase' var="actionUrl" />
 
 <h1 class="header center">Configuração - Firebase</h1>
+
+<c:if test="${info != null}">
+	<script>
+		Materialize.toast('${info}', 4000)
+	</script>
+</c:if>
 
 <div class="row">
 	<form:form action="${actionUrl}" commandName="firebaseConfig"
