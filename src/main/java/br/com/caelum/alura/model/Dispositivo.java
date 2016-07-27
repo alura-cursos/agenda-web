@@ -1,13 +1,20 @@
 package br.com.caelum.alura.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Dispositivo {
 
+	@Id
 	private String token;
-	private Aluno aluno;
 
-	public Dispositivo(String token, Aluno aluno) {
+	public Dispositivo(String token) {
 		this.token = token;
-		this.aluno = aluno;
+	}
+	
+	public Dispositivo (){
+		
 	}
 
 	public String getToken() {
@@ -18,12 +25,4 @@ public class Dispositivo {
 		this.token = token;
 	}
 
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-	}
-	
 }

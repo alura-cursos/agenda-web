@@ -1,4 +1,4 @@
-package br.com.caelum.alura.controller;
+package br.com.caelum.alura.rest.controller;
 
 import static br.com.caelum.alura.utils.HTTPValues.JSON;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;

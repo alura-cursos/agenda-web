@@ -4,7 +4,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<html:header title="Home"></html:header>
+<html:header title="Configuração"></html:header>
 
 <c:url value='/firebase/config' var="actionUrl" />
 

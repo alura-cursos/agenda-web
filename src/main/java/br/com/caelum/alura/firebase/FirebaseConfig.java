@@ -21,23 +21,27 @@ public class FirebaseConfig {
 		this.apikey = apikey;
 	}
 
-	public String getURL() {
-		return URL;
+	public String getURL() throws IOException {
+		Resource resource = new ClassPathResource("/firebase.properties");
+		Properties prop = PropertiesLoaderUtils.loadProperties(resource);
+		return (String) prop.getProperty("firebase.url");
 	}
 
-	public void setURL(String uRL) {
-		URL = uRL;
+	public void setURL(String URL) {
+		this.URL = URL;
 	}
 
-	public String getApikey() {
-		return apikey;
+	public String getApikey() throws IOException {
+		Resource resource = new ClassPathResource("/firebase.properties");
+		Properties prop = PropertiesLoaderUtils.loadProperties(resource);
+		return (String) prop.getProperty("firebase.apikey");
 	}
 
 	public void setApikey(String apikey) {
 		this.apikey = apikey;
 	}
 
-	public static FirebaseConfig getInstance(){
+	public static FirebaseConfig getInstance() {
 		FirebaseConfig firebaseConfig = new FirebaseConfig();
 		try {
 			Resource resource = new ClassPathResource("/firebase.properties");
@@ -49,14 +53,13 @@ public class FirebaseConfig {
 		}
 		return firebaseConfig;
 	}
-	
-	public void salvarProperties() throws IOException{
-			Resource resource = new ClassPathResource("/firebase.properties");
-			Properties prop = PropertiesLoaderUtils.loadProperties(resource);
-			prop.put("firebase.apikey", apikey);
-			prop.put("firebase.url", URL);
-			prop.store(new FileOutputStream(resource.getFile()), "");
+
+	public void salvarProperties() throws IOException {
+		Resource resource = new ClassPathResource("/firebase.properties");
+		Properties prop = PropertiesLoaderUtils.loadProperties(resource);
+		prop.put("firebase.apikey", apikey);
+		prop.put("firebase.url", URL);
+		prop.store(new FileOutputStream(resource.getFile()), "");
 	}
-	
-	
+
 }

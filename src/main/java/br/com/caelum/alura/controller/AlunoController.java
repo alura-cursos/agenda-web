@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.caelum.alura.model.Aluno;
 import br.com.caelum.alura.service.AlunoService;
+import br.com.caelum.alura.service.DispositivoService;
 import br.com.caelum.alura.utils.AlunoUtils;
 
 @Controller
@@ -16,10 +17,12 @@ import br.com.caelum.alura.utils.AlunoUtils;
 public class AlunoController {
 
 	private AlunoService alunoService;
+	private DispositivoService dispositivoService;
 
 	@Autowired
-	public AlunoController(AlunoService alunoService) {
+	public AlunoController(AlunoService alunoService, DispositivoService dispositivoService) {
 		this.alunoService = alunoService;
+		this.dispositivoService = dispositivoService;
 	}
 	
 	@RequestMapping("form")
@@ -33,6 +36,8 @@ public class AlunoController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(@ModelAttribute("aluno") Aluno aluno) {
 		alunoService.salvar(aluno);
+		Aluno salvo = alunoService.getUltimo();
+		dispositivoService.notificaNovoRegistro(salvo);
 		return "redirect:aluno";
 	}
 

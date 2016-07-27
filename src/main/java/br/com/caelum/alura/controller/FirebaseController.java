@@ -35,8 +35,5 @@ public class FirebaseController {
 		return "redirect:/firebase";
 	}
 
-	@RequestMapping(value = "mensagem", method = GET)
-	public String mensagem() {
-		return "firebase/mensagem";
-	}
+	
 }

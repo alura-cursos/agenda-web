@@ -3,10 +3,10 @@
 <%@taglib prefix="html" tagdir="/WEB-INF/tags/"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<html:header title="Home"></html:header>
+<html:header title="Firebase"></html:header>
 
 <c:url value="firebase/config" var="firebase_config" />
-<c:url value="firebase/config" var="firebase_mensagem" />
+<c:url value="firebase/mensagem" var="firebase_mensagem" />
 
 <h1 class="header center">Firebase</h1>
 
