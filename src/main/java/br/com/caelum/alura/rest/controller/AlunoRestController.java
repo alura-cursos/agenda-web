@@ -19,16 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.caelum.alura.model.Aluno;
 import br.com.caelum.alura.service.AlunoService;
+import br.com.caelum.alura.service.DispositivoService;
 
 @RestController
 @RequestMapping("v1/aluno")
 public class AlunoRestController {
 
 	private AlunoService alunoService;
+	private DispositivoService dispositivoService;
 
 	@Autowired
-	public AlunoRestController(AlunoService alunoService) {
+	public AlunoRestController(AlunoService alunoService, DispositivoService dispositivoService) {
 		this.alunoService = alunoService;
+		this.dispositivoService = dispositivoService;
 	}
 
 	@RequestMapping(method = GET)
@@ -51,6 +54,7 @@ public class AlunoRestController {
 	public ResponseEntity<String> deletar(@PathVariable("id") Long id) {
 		if (alunoService.existe(id)) {
 			alunoService.deletar(id);
+			dispositivoService.notificaNovaDelecao(id);
 			return new ResponseEntity<String>("aluno deletado", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>("aluno inexistente", HttpStatus.FORBIDDEN);

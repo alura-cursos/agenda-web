@@ -30,8 +30,9 @@
 <link rel="stylesheet" type="text/css" href="${cssPath}main.css" />
 <link rel="stylesheet" type="text/css"
 	href="${cssPath}materialize.min.css" />
-<link href="http://fonts.googleapis.com/icon?family=Material+Icons"
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
+<link href="/img/favicon.ico" rel="shortcut icon">
 <script src="${jsPath}/jquery.js"></script>
 <script src="${jsPath}/materialize.min.js"></script>
 <script src="${jsPath}/inicializer.js"></script>

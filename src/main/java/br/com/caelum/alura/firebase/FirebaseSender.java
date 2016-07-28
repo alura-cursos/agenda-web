@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.caelum.alura.model.Aluno;
+import br.com.caelum.alura.dto.AlunoDTO;
 import br.com.caelum.alura.model.Dispositivo;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -33,15 +33,17 @@ public class FirebaseSender {
 		return request;
 	}
 
-	public void enviarAluno(List<Dispositivo> dispositivos, Aluno aluno) throws IOException {
+	public void envia(List<Dispositivo> dispositivos, AlunoDTO alunoDTO) throws IOException {
 		Mensagem mensagem = new Mensagem();
-		mensagem.addData("aluno", aluno);
+		mensagem.addData("alunoDTO", alunoDTO);
 		ObjectMapper objectMapper = new ObjectMapper();
 		for (Dispositivo dispositivo : dispositivos) {
 			mensagem.setTo(dispositivo.getToken());
 			String json = objectMapper.writeValueAsString(mensagem);
 			Request request = createRequestForPOST(json);
+			System.out.println(json);
 			Response response = client.newCall(request).execute();
+			System.out.println(response.message());
 			response.close();
 		}
 	}

@@ -50,9 +50,19 @@ public class AlunoController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(@ModelAttribute("aluno") Aluno aluno, RedirectAttributes attributes) {
+		
+		
+		Long id = aluno.getId();
+		
+		
 		alunoService.salvar(aluno);
-		Aluno salvo = alunoService.getUltimo();
-		dispositivoService.notificaNovoRegistro(salvo);
+		if (id != null && alunoService.existe(id)) {
+			dispositivoService.notificaNovaAlteracao(id);
+		} else {
+			Aluno salvo = alunoService.getUltimo();
+			dispositivoService.notificaNovoRegistro(salvo.getId());
+		}
+
 		attributes.addFlashAttribute("info", "aluno salvo");
 		return "redirect:aluno";
 	}

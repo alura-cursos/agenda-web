@@ -15,10 +15,12 @@
 	</script>
 </c:if>
 
-<ul class="collection">
-	<c:forEach items="${alunos}" var="aluno">
-		<html:avatar aluno="${aluno}" />
-	</c:forEach>
-</ul>
+<c:if test="${alunos.size() > 0}">
+	<ul class="collection">
+		<c:forEach items="${alunos}" var="aluno">
+			<html:avatar aluno="${aluno}" />
+		</c:forEach>
+	</ul>
+</c:if>
 
 <html:footer></html:footer>

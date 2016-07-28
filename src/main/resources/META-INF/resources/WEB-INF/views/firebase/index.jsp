@@ -16,11 +16,11 @@ ${sucesso }
 	<a href="${firebase_config }">
 		<div class="col s12 m6 waves-effect waves-light">
 			<div class="card-panel hoverable z-depth-1 center">
-				<i class="large material-icons ">settings</i>
+				<i class="large material-icons ">perm_identity
+</i>
 				<div class="header ">Configuração</div>
 			</div>
 		</div>
-</div>
 </div>
 
 <html:footer></html:footer>
