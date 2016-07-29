@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Aluno {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 	private String endereco;
@@ -85,10 +85,9 @@ public class Aluno {
 	@Override
 	public boolean equals(Object obj) {
 		Aluno aluno = (Aluno) obj;
-		if(aluno.id == this.id)
+		if (aluno.id == this.id)
 			return true;
 		return false;
 	}
-	
 
 }

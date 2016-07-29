@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.caelum.alura.model.Aluno;
 import br.com.caelum.alura.service.AlunoService;
 import br.com.caelum.alura.service.DispositivoService;
+import br.com.caelum.alura.service.RegistroService;
 import br.com.caelum.alura.utils.AlunoUtils;
 
 @Controller
@@ -22,7 +23,8 @@ public class AlunoController {
 	private DispositivoService dispositivoService;
 
 	@Autowired
-	public AlunoController(AlunoService alunoService, DispositivoService dispositivoService) {
+	public AlunoController(AlunoService alunoService, DispositivoService dispositivoService,
+			RegistroService registroService) {
 		this.alunoService = alunoService;
 		this.dispositivoService = dispositivoService;
 	}
@@ -50,11 +52,8 @@ public class AlunoController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(@ModelAttribute("aluno") Aluno aluno, RedirectAttributes attributes) {
-		
-		
 		Long id = aluno.getId();
-		
-		
+
 		alunoService.salvar(aluno);
 		if (id != null && alunoService.existe(id)) {
 			dispositivoService.notificaNovaAlteracao(id);
