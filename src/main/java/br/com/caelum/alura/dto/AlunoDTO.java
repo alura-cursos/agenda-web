@@ -1,14 +1,14 @@
 package br.com.caelum.alura.dto;
 
-import br.com.caelum.alura.model.Registro;
+import br.com.caelum.alura.model.Aluno;
 
 public class AlunoDTO {
 
-	private Long id;
 	private Acao acao;
+	private Aluno aluno;
 
-	public AlunoDTO(Long id, Acao acao) {
-		this.id = id;
+	public AlunoDTO(Aluno aluno, Acao acao) {
+		this.aluno = aluno;
 		this.acao = acao;
 	}
 
@@ -16,9 +16,11 @@ public class AlunoDTO {
 
 	}
 
-	public AlunoDTO(Registro registro) {
-		this.id = registro.getId();
-		this.acao = registro.getAcao();
+	public AlunoDTO(Long id, Acao acao) {
+		this.acao = acao;
+		Aluno aluno = new Aluno();
+		aluno.setId(id);
+		this.aluno = aluno;
 	}
 
 	public Acao getAcao() {
@@ -29,12 +31,12 @@ public class AlunoDTO {
 		this.acao = acao;
 	}
 
-	public Long getId() {
-		return id;
+	public Aluno getAluno() {
+		return aluno;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 
 }

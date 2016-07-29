@@ -13,21 +13,26 @@ public class AlunoService {
 
 	private AlunoRepository alunoRepository;
 	private RegistroService registoService;
+	private DispositivoService dispositivoService;
 
 	@Autowired
-	public AlunoService(AlunoRepository alunoRepository, RegistroService registoService) {
+	public AlunoService(AlunoRepository alunoRepository, RegistroService registoService,
+			DispositivoService dispositivoService) {
 		this.alunoRepository = alunoRepository;
 		this.registoService = registoService;
+		this.dispositivoService = dispositivoService;
 	}
 
 	public void salvar(Aluno aluno) {
 		Long id = aluno.getId();
-		if (id != null) {
+		if (id != null && existe(id)) {
 			registoService.alteracao(id);
 			alunoRepository.save(aluno);
+			dispositivoService.notificaNovaAlteracao(id);
 		} else {
 			alunoRepository.save(aluno);
 			registoService.insercao(aluno.getId());
+			dispositivoService.notificaNovoRegistro(aluno.getId());
 		}
 	}
 
