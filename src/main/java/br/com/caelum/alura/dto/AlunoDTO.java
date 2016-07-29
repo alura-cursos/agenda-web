@@ -1,5 +1,7 @@
 package br.com.caelum.alura.dto;
 
+import br.com.caelum.alura.model.Registro;
+
 public class AlunoDTO {
 
 	private Long id;
@@ -12,6 +14,11 @@ public class AlunoDTO {
 
 	public AlunoDTO() {
 
+	}
+
+	public AlunoDTO(Registro registro) {
+		this.id = registro.getId();
+		this.acao = registro.getAcao();
 	}
 
 	public Acao getAcao() {

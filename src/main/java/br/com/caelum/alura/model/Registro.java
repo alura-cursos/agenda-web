@@ -31,6 +31,10 @@ public class Registro {
 		this.dataHora = LocalDateTime.now();
 	}
 
+	public Long getId() {
+		return this.id;
+	}
+
 	public Acao getAcao() {
 		return acao;
 	}
