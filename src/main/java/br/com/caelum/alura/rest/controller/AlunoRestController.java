@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.caelum.alura.dto.AlunoDTO;
+import br.com.caelum.alura.dto.SyncDTO;
 import br.com.caelum.alura.model.Aluno;
 import br.com.caelum.alura.service.AlunoService;
 import br.com.caelum.alura.service.DispositivoService;
@@ -75,9 +76,9 @@ public class AlunoRestController {
 	}
 
 	@RequestMapping(value = "diff", method = GET, produces = JSON)
-	public @ResponseBody List<AlunoDTO> alteracoesAlunos(@RequestHeader("datahora") String datahora) {
+	public @ResponseBody SyncDTO alteracoesAlunos(@RequestHeader("datahora") String datahora) {
 		List<AlunoDTO> dtos = registroService.novosRegistro(LocalDateTime.parse(datahora));
-		return dtos;
+		return new SyncDTO(dtos);
 	}
 
 }

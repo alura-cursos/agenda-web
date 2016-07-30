@@ -7,13 +7,13 @@ public class AlunoDTO {
 	private Acao acao;
 	private Aluno aluno;
 
+	public AlunoDTO() {
+
+	}
+
 	public AlunoDTO(Aluno aluno, Acao acao) {
 		this.aluno = aluno;
 		this.acao = acao;
-	}
-
-	public AlunoDTO() {
-
 	}
 
 	public AlunoDTO(Long id, Acao acao) {
