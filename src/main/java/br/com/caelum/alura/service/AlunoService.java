@@ -38,7 +38,7 @@ public class AlunoService {
 
 	public void deletar(Long id) {
 		Aluno aluno = getAluno(id);
-		aluno.setAtivo(false);
+		aluno.setAtivo(0);
 		salvar(aluno);
 	}
 

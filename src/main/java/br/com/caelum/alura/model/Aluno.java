@@ -27,7 +27,7 @@ public class Aluno {
 	@JsonIgnore
 	@Convert(converter = LocalDateTimeConverter.class)
 	private LocalDateTime modificacao;
-	private boolean ativo = true;
+	private int ativo = 1;
 
 	public Long getId() {
 		return id;
@@ -89,11 +89,11 @@ public class Aluno {
 		this.modificacao = LocalDateTime.now();
 	}
 
-	public boolean isAtivo() {
+	public int getAtivo() {
 		return ativo;
 	}
 
-	public void setAtivo(boolean ativo) {
+	public void setAtivo(int ativo) {
 		this.ativo = ativo;
 	}
 

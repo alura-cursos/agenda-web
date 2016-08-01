@@ -13,12 +13,12 @@ public interface AlunoRepository extends PagingAndSortingRepository<Aluno, Long>
 
 	List<Aluno> findAllByOrderByIdDesc();
 
-	@Query("UPDATE Aluno a SET a.ativo = false WHERE a.id = :id")
+	@Query("UPDATE Aluno a SET a.ativo = 0 WHERE a.id = :id")
 	void deletaAluno(@Param("id") Long id);
 
 	@Query("FROM Aluno a WHERE a.modificacao > :datahora")
 	List<Aluno> alunosModificados(@Param("datahora") LocalDateTime datahora);
 
-	@Query("FROM Aluno a WHERE a.ativo = true")
+	@Query("FROM Aluno a WHERE a.ativo = 1")
 	List<Aluno> alunosVisiveis();
 }
