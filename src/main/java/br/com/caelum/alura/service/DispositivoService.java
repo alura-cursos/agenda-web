@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import br.com.caelum.alura.dto.Acao;
-import br.com.caelum.alura.dto.AlunoDTO;
 import br.com.caelum.alura.firebase.FirebaseSender;
+import br.com.caelum.alura.model.Aluno;
 import br.com.caelum.alura.model.Dispositivo;
 import br.com.caelum.alura.repository.DispositivoRepository;
 
@@ -28,28 +27,11 @@ public class DispositivoService {
 	}
 
 	@Async
-	public void notificaNovoRegistro(Long id) {
-		AlunoDTO alunoDto = new AlunoDTO(id, Acao.ADICIONA);
-		enviaNotificacao(alunoDto);
-	}
-
-	@Async
-	public void notificaNovaAlteracao(Long id) {
-		AlunoDTO alunoDto = new AlunoDTO(id, Acao.ALTERA);
-		enviaNotificacao(alunoDto);
-	}
-
-	@Async
-	public void notificaNovaDelecao(Long id) {
-		AlunoDTO alunoDto = new AlunoDTO(id, Acao.DELETA);
-		enviaNotificacao(alunoDto);
-	}
-
-	private void enviaNotificacao(AlunoDTO alunoDto) {
+	public void enviaNotificacao(Aluno aluno) {
 		List<Dispositivo> dispositivos = (List<Dispositivo>) dispositivoRepository.findAll();
 		try {
 			FirebaseSender firebaseSender = new FirebaseSender();
-			firebaseSender.envia(dispositivos, alunoDto);
+			firebaseSender.envia(dispositivos, aluno);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

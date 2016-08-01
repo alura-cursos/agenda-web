@@ -4,18 +4,20 @@ import java.util.List;
 
 import org.joda.time.LocalDateTime;
 
-public class SyncDTO {
+import br.com.caelum.alura.model.Aluno;
 
-	private final List<AlunoDTO> dto;
+public class AlunoSync {
+
+	private final List<Aluno> alunos;
 	private final String datahora;
 
-	public SyncDTO(List<AlunoDTO> dto) {
-		this.dto = dto;
+	public AlunoSync(List<Aluno> alunos) {
+		this.alunos = alunos;
 		this.datahora = LocalDateTime.now().toString();
 	}
 
-	public List<AlunoDTO> getDto() {
-		return dto;
+	public List<Aluno> getAlunos() {
+		return alunos;
 	}
 
 	public String getDatahora() {

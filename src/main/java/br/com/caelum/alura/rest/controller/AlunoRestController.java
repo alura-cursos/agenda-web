@@ -6,8 +6,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PATCH;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-import java.util.List;
-
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,31 +17,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.caelum.alura.dto.AlunoDTO;
-import br.com.caelum.alura.dto.SyncDTO;
+import br.com.caelum.alura.dto.AlunoSync;
 import br.com.caelum.alura.model.Aluno;
 import br.com.caelum.alura.service.AlunoService;
-import br.com.caelum.alura.service.DispositivoService;
-import br.com.caelum.alura.service.RegistroService;
 
 @RestController
 @RequestMapping("v1/aluno")
 public class AlunoRestController {
 
 	private AlunoService alunoService;
-	private DispositivoService dispositivoService;
-	private RegistroService registroService;
 
 	@Autowired
-	public AlunoRestController(AlunoService alunoService, DispositivoService dispositivoService,
-			RegistroService registroService) {
+	public AlunoRestController(AlunoService alunoService) {
 		this.alunoService = alunoService;
-		this.dispositivoService = dispositivoService;
-		this.registroService = registroService;
 	}
 
 	@RequestMapping(method = GET)
-	public @ResponseBody SyncDTO alunos() {
+	public @ResponseBody AlunoSync alunos() {
 		return alunoService.getSyncLista();
 	}
 
@@ -62,7 +52,6 @@ public class AlunoRestController {
 	public ResponseEntity<String> deletar(@PathVariable("id") Long id) {
 		if (alunoService.existe(id)) {
 			alunoService.deletar(id);
-			dispositivoService.notificaNovaDelecao(id);
 			return new ResponseEntity<String>("aluno deletado", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>("aluno inexistente", HttpStatus.FORBIDDEN);
@@ -76,9 +65,8 @@ public class AlunoRestController {
 	}
 
 	@RequestMapping(value = "diff", method = GET, produces = JSON)
-	public @ResponseBody SyncDTO alteracoesAlunos(@RequestHeader("datahora") String datahora) {
-		List<AlunoDTO> dtos = registroService.novosRegistro(LocalDateTime.parse(datahora));
-		return new SyncDTO(dtos);
+	public @ResponseBody AlunoSync alteracoesAlunos(@RequestHeader("datahora") String datahora) {
+		return alunoService.novosRegistro(LocalDateTime.parse(datahora));
 	}
 
 }

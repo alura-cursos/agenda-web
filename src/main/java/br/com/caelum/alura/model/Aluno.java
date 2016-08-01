@@ -1,9 +1,16 @@
 package br.com.caelum.alura.model;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.joda.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.caelum.alura.converter.LocalDateTimeConverter;
 
 @Entity
 public class Aluno {
@@ -17,6 +24,10 @@ public class Aluno {
 	private String site;
 	private Double nota;
 	private String caminhoFoto;
+	@JsonIgnore
+	@Convert(converter = LocalDateTimeConverter.class)
+	private LocalDateTime modificacao;
+	private boolean removido;
 
 	public Long getId() {
 		return id;
@@ -72,6 +83,18 @@ public class Aluno {
 
 	public void setCaminhoFoto(String caminhoFoto) {
 		this.caminhoFoto = caminhoFoto;
+	}
+
+	public void alunoModificado() {
+		this.modificacao = LocalDateTime.now();
+	}
+
+	public boolean isRemovido() {
+		return removido;
+	}
+
+	public void setRemovido(boolean removido) {
+		this.removido = removido;
 	}
 
 	@Override

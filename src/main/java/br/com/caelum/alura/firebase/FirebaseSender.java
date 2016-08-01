@@ -1,15 +1,12 @@
 package br.com.caelum.alura.firebase;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.caelum.alura.dto.AlunoDTO;
-import br.com.caelum.alura.dto.SyncDTO;
+import br.com.caelum.alura.model.Aluno;
 import br.com.caelum.alura.model.Dispositivo;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -37,10 +34,9 @@ public class FirebaseSender {
 		return request;
 	}
 
-	public void envia(List<Dispositivo> dispositivos, AlunoDTO alunoDTO) throws IOException {
+	public void envia(List<Dispositivo> dispositivos, Aluno aluno) throws IOException {
 		Mensagem mensagem = new Mensagem();
-		ArrayList<AlunoDTO> dtos = new ArrayList<AlunoDTO>(Arrays.asList(alunoDTO));
-		mensagem.addData("syncDTO", new SyncDTO(dtos));
+		mensagem.addData("aluno", aluno);
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setSerializationInclusion(Include.NON_NULL);
 		for (Dispositivo dispositivo : dispositivos) {

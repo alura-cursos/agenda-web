@@ -1,13 +1,12 @@
 package br.com.caelum.alura.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.caelum.alura.dto.AlunoDTO;
-import br.com.caelum.alura.dto.SyncDTO;
+import br.com.caelum.alura.dto.AlunoSync;
 import br.com.caelum.alura.model.Aluno;
 import br.com.caelum.alura.repository.AlunoRepository;
 
@@ -15,32 +14,22 @@ import br.com.caelum.alura.repository.AlunoRepository;
 public class AlunoService {
 
 	private AlunoRepository alunoRepository;
-	private RegistroService registoService;
 	private DispositivoService dispositivoService;
 
 	@Autowired
-	public AlunoService(AlunoRepository alunoRepository, RegistroService registoService,
-			DispositivoService dispositivoService) {
+	public AlunoService(AlunoRepository alunoRepository, DispositivoService dispositivoService) {
 		this.alunoRepository = alunoRepository;
-		this.registoService = registoService;
 		this.dispositivoService = dispositivoService;
 	}
 
 	public void salvar(Aluno aluno) {
-		Long id = aluno.getId();
-		if (id != null && existe(id)) {
-			registoService.alteracao(id);
-			alunoRepository.save(aluno);
-			dispositivoService.notificaNovaAlteracao(id);
-		} else {
-			alunoRepository.save(aluno);
-			registoService.insercao(aluno.getId());
-			dispositivoService.notificaNovoRegistro(aluno.getId());
-		}
+		aluno.alunoModificado();
+		alunoRepository.save(aluno);
+		dispositivoService.enviaNotificacao(aluno);
 	}
 
 	public List<Aluno> getLista() {
-		return (List<Aluno>) alunoRepository.findAll();
+		return alunoRepository.alunosVisiveis();
 	}
 
 	public long getTotal() {
@@ -48,9 +37,9 @@ public class AlunoService {
 	}
 
 	public void deletar(Long id) {
-		registoService.delecao(id);
-		alunoRepository.delete(alunoRepository.findOne(id));
-		dispositivoService.notificaNovaDelecao(id);
+		Aluno aluno = getAluno(id);
+		aluno.setRemovido(true);
+		salvar(aluno);
 	}
 
 	public boolean existe(Long id) {
@@ -65,13 +54,13 @@ public class AlunoService {
 		return alunoRepository.findOne(id);
 	}
 
-	public SyncDTO getSyncLista() {
-		List<Aluno> lista = getLista();
-		List<AlunoDTO> dtos = new ArrayList<>();
-		for (Aluno aluno : lista) {
-			dtos.add(new AlunoDTO(aluno));
-		}
-		return new SyncDTO(dtos);
+	public AlunoSync getSyncLista() {
+		return new AlunoSync((List<Aluno>) alunoRepository.findAll());
+	}
+
+	public AlunoSync novosRegistro(LocalDateTime datahora) {
+		List<Aluno> alunos = alunoRepository.alunosModificados(datahora);
+		return new AlunoSync(alunos);
 	}
 
 }
