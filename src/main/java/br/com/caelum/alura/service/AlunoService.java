@@ -1,10 +1,13 @@
 package br.com.caelum.alura.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.caelum.alura.dto.AlunoDTO;
+import br.com.caelum.alura.dto.SyncDTO;
 import br.com.caelum.alura.model.Aluno;
 import br.com.caelum.alura.repository.AlunoRepository;
 
@@ -47,6 +50,7 @@ public class AlunoService {
 	public void deletar(Long id) {
 		registoService.delecao(id);
 		alunoRepository.delete(alunoRepository.findOne(id));
+		dispositivoService.notificaNovaDelecao(id);
 	}
 
 	public boolean existe(Long id) {
@@ -59,6 +63,15 @@ public class AlunoService {
 
 	public Aluno getAluno(Long id) {
 		return alunoRepository.findOne(id);
+	}
+
+	public SyncDTO getSyncLista() {
+		List<Aluno> lista = getLista();
+		List<AlunoDTO> dtos = new ArrayList<>();
+		for (Aluno aluno : lista) {
+			dtos.add(new AlunoDTO(aluno));
+		}
+		return new SyncDTO(dtos);
 	}
 
 }

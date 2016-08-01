@@ -27,22 +27,24 @@ public class DispositivoService {
 		dispositivoRepository.save(dispositivo);
 	}
 
+	@Async
 	public void notificaNovoRegistro(Long id) {
 		AlunoDTO alunoDto = new AlunoDTO(id, Acao.ADICIONA);
 		enviaNotificacao(alunoDto);
 	}
 
+	@Async
 	public void notificaNovaAlteracao(Long id) {
 		AlunoDTO alunoDto = new AlunoDTO(id, Acao.ALTERA);
 		enviaNotificacao(alunoDto);
 	}
 
+	@Async
 	public void notificaNovaDelecao(Long id) {
 		AlunoDTO alunoDto = new AlunoDTO(id, Acao.DELETA);
 		enviaNotificacao(alunoDto);
 	}
 
-	@Async
 	private void enviaNotificacao(AlunoDTO alunoDto) {
 		List<Dispositivo> dispositivos = (List<Dispositivo>) dispositivoRepository.findAll();
 		try {

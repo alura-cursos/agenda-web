@@ -6,11 +6,8 @@ import org.joda.time.LocalDateTime;
 
 public class SyncDTO {
 
-	private List<AlunoDTO> dto;
-	private String datahora;
-
-	public SyncDTO() {
-	}
+	private final List<AlunoDTO> dto;
+	private final String datahora;
 
 	public SyncDTO(List<AlunoDTO> dto) {
 		this.dto = dto;
@@ -21,16 +18,8 @@ public class SyncDTO {
 		return dto;
 	}
 
-	public void setDto(List<AlunoDTO> dto) {
-		this.dto = dto;
-	}
-
 	public String getDatahora() {
 		return datahora;
-	}
-
-	public void setDatahora(String datahora) {
-		this.datahora = datahora;
 	}
 
 }

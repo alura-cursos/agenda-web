@@ -43,8 +43,8 @@ public class AlunoRestController {
 	}
 
 	@RequestMapping(method = GET)
-	public @ResponseBody List<Aluno> alunos() {
-		return alunoService.getLista();
+	public @ResponseBody SyncDTO alunos() {
+		return alunoService.getSyncLista();
 	}
 
 	@RequestMapping(value = "{id}", method = GET, produces = JSON)

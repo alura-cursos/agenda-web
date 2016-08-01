@@ -5,10 +5,10 @@ import br.com.caelum.alura.model.Aluno;
 public class AlunoDTO {
 
 	private Acao acao;
-	private Aluno aluno;
+	private final Aluno aluno;
 
-	public AlunoDTO() {
-
+	public AlunoDTO(Aluno aluno) {
+		this.aluno = aluno;
 	}
 
 	public AlunoDTO(Aluno aluno, Acao acao) {
@@ -27,16 +27,8 @@ public class AlunoDTO {
 		return acao;
 	}
 
-	public void setAcao(Acao acao) {
-		this.acao = acao;
-	}
-
 	public Aluno getAluno() {
 		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
 	}
 
 }
