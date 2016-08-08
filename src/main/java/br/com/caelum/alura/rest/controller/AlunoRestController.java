@@ -6,6 +6,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PATCH;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,39 +37,39 @@ public class AlunoRestController {
 	}
 
 	@RequestMapping(method = GET)
-	public @ResponseBody AlunoSync alunos() {
+	public @ResponseBody AlunoSync lista() {
 		return alunoService.getSyncLista();
 	}
 
 	@RequestMapping(value = "{id}", method = GET, produces = JSON)
-	public @ResponseBody Aluno aluno(@PathVariable("id") Long id) {
-		return alunoService.getAluno(id);
+	public @ResponseBody AlunoSync busca(@PathVariable("id") Long id) {
+		return new AlunoSync(alunoService.getAluno(id));
 	}
 
 	@RequestMapping(method = POST, consumes = JSON, produces = JSON)
-	public @ResponseBody Aluno inserir(@RequestBody Aluno aluno) {
+	public @ResponseBody AlunoSync insere(@RequestBody Aluno aluno) {
 		alunoService.salvar(aluno);
-		return alunoService.getUltimo();
+		return new AlunoSync(alunoService.getUltimo());
 	}
 
 	@RequestMapping(value = "{id}", method = DELETE)
-	public ResponseEntity<String> deletar(@PathVariable("id") Long id) {
+	public @ResponseBody ResponseEntity<AlunoSync> deleta(@PathVariable("id") Long id) {
 		if (alunoService.existe(id)) {
 			alunoService.deletar(id);
-			return new ResponseEntity<String>("aluno deletado", HttpStatus.OK);
-		} else {
-			return new ResponseEntity<String>("aluno inexistente", HttpStatus.FORBIDDEN);
+			return new ResponseEntity<AlunoSync>(new AlunoSync(alunoService.getAluno(id)), HttpStatus.OK);
 		}
+		return new ResponseEntity<AlunoSync>(new AlunoSync(new ArrayList<>()), HttpStatus.FORBIDDEN);
 	}
 
 	@RequestMapping(method = PATCH, consumes = JSON, produces = JSON)
-	public @ResponseBody Aluno alterar(@RequestBody Aluno aluno) {
+	public @ResponseBody AlunoSync altera(@RequestBody Aluno aluno) {
 		alunoService.salvar(aluno);
-		return alunoService.getAluno(aluno.getId());
+		List<Aluno> alunos = new ArrayList<>(Arrays.asList(alunoService.getAluno(aluno.getId())));
+		return new AlunoSync(alunos);
 	}
 
 	@RequestMapping(value = "diff", method = GET, produces = JSON)
-	public @ResponseBody AlunoSync alteracoesAlunos(@RequestHeader("datahora") String datahora) {
+	public @ResponseBody AlunoSync alteracoes(@RequestHeader("datahora") String datahora) {
 		return alunoService.novosRegistro(LocalDateTime.parse(datahora));
 	}
 

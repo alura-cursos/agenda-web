@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
-@EnableAutoConfiguration
+@EnableAutoConfiguration	
 @EnableJpaRepositories
 @EnableAsync
 public class Application {

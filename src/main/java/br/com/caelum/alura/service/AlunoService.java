@@ -1,5 +1,7 @@
 package br.com.caelum.alura.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.joda.time.LocalDateTime;
@@ -25,7 +27,14 @@ public class AlunoService {
 	public void salvar(Aluno aluno) {
 		aluno.alunoModificado();
 		alunoRepository.save(aluno);
-		dispositivoService.enviaNotificacao(aluno);
+		notificaAlteracao(aluno);
+	}
+
+
+
+	private void notificaAlteracao(Aluno aluno) {
+		List<Aluno> alunos = new ArrayList<>(Arrays.asList(aluno));
+		dispositivoService.enviaNotificacao(alunos);
 	}
 
 	public List<Aluno> getLista() {
@@ -55,12 +64,21 @@ public class AlunoService {
 	}
 
 	public AlunoSync getSyncLista() {
-		return new AlunoSync((List<Aluno>) alunoRepository.findAll());
+		return new AlunoSync(alunoRepository.alunosVisiveis());
 	}
 
 	public AlunoSync novosRegistro(LocalDateTime datahora) {
 		List<Aluno> alunos = alunoRepository.alunosModificados(datahora);
 		return new AlunoSync(alunos);
+	}
+
+	public List<Aluno> salvaLista(List<Aluno> alunos) {
+		List<Aluno> alunosSalvos = new ArrayList<>();
+		for (Aluno aluno : alunos) {
+			salvar(aluno);
+			alunosSalvos.add(getUltimo());
+		}
+		return alunosSalvos;
 	}
 
 }

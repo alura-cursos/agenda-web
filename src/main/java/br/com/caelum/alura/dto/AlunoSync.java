@@ -1,5 +1,7 @@
 package br.com.caelum.alura.dto;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.joda.time.LocalDateTime;
@@ -13,6 +15,11 @@ public class AlunoSync {
 
 	public AlunoSync(List<Aluno> alunos) {
 		this.alunos = alunos;
+		this.datahora = LocalDateTime.now().toString();
+	}
+
+	public AlunoSync(Aluno aluno) {
+		this.alunos = new ArrayList<>(Arrays.asList(aluno));
 		this.datahora = LocalDateTime.now().toString();
 	}
 
