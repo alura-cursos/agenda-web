@@ -23,6 +23,16 @@ public class AlunoSync {
 		this.datahora = LocalDateTime.now().toString();
 	}
 
+	public AlunoSync(List<Aluno> alunos, String datahora) {
+		this.alunos = alunos;
+		this.datahora = datahora;
+	}
+
+	public AlunoSync(Aluno aluno, String datahora) {
+		this.alunos = new ArrayList<>(Arrays.asList(aluno));
+		this.datahora = datahora;
+	}
+
 	public List<Aluno> getAlunos() {
 		return alunos;
 	}

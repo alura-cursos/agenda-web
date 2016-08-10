@@ -2,11 +2,14 @@ package br.com.caelum.alura.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.IllegalFormatException;
 import java.util.List;
+import java.util.UUID;
 
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.caelum.alura.dto.AlunoSync;
 import br.com.caelum.alura.model.Aluno;
@@ -24,13 +27,31 @@ public class AlunoService {
 		this.dispositivoService = dispositivoService;
 	}
 
-	public void salvar(Aluno aluno) {
+	public String salvar(Aluno aluno) {
 		aluno.alunoModificado();
+		verificaId(aluno);
 		alunoRepository.save(aluno);
 		notificaAlteracao(aluno);
+		return aluno.getId();
 	}
 
+	private void verificaId(Aluno aluno) {
+		if (aluno.getId() == null) {
+			aluno.setId(UUID.randomUUID().toString());
+		}
+	}
 
+	@Transactional
+	public List<Aluno> salvar(List<Aluno> alunos) {
+		List<Aluno> alunosSalvos = new ArrayList<>();
+		for (Aluno aluno : alunos) {
+			if (aluno.getId() != null) {
+				String id = salvar(aluno);
+				alunosSalvos.add(busca(id));
+			}
+		}
+		return alunosSalvos;
+	}
 
 	private void notificaAlteracao(Aluno aluno) {
 		List<Aluno> alunos = new ArrayList<>(Arrays.asList(aluno));
@@ -45,21 +66,19 @@ public class AlunoService {
 		return alunoRepository.count();
 	}
 
-	public void deletar(Long id) {
-		Aluno aluno = getAluno(id);
-		aluno.setAtivo(0);
+	@Transactional
+	public void deletar(String id) {
+		Aluno aluno = busca(id);
+		aluno.setDesativado(1);
+		aluno.alunoModificado();
 		salvar(aluno);
 	}
 
-	public boolean existe(Long id) {
+	public boolean existe(String id) {
 		return alunoRepository.exists(id);
 	}
 
-	public Aluno getUltimo() {
-		return alunoRepository.findAllByOrderByIdDesc().get(0);
-	}
-
-	public Aluno getAluno(Long id) {
+	public Aluno busca(String id) {
 		return alunoRepository.findOne(id);
 	}
 
@@ -72,13 +91,14 @@ public class AlunoService {
 		return new AlunoSync(alunos);
 	}
 
-	public List<Aluno> salvaLista(List<Aluno> alunos) {
-		List<Aluno> alunosSalvos = new ArrayList<>();
-		for (Aluno aluno : alunos) {
-			salvar(aluno);
-			alunosSalvos.add(getUltimo());
+	public boolean temAtualizacao(String datahora) {
+		try {
+			LocalDateTime localDateTime = LocalDateTime.parse(datahora);
+			return alunoRepository.existeAtualizacao(localDateTime);
+		} catch (IllegalFormatException e) {
+			e.printStackTrace();
 		}
-		return alunosSalvos;
+		return false;
 	}
 
 }

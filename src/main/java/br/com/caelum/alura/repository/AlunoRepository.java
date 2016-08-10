@@ -9,16 +9,16 @@ import org.springframework.data.repository.query.Param;
 
 import br.com.caelum.alura.model.Aluno;
 
-public interface AlunoRepository extends PagingAndSortingRepository<Aluno, Long> {
+public interface AlunoRepository extends PagingAndSortingRepository<Aluno, String> {
 
 	List<Aluno> findAllByOrderByIdDesc();
-
-	@Query("UPDATE Aluno a SET a.ativo = 0 WHERE a.id = :id")
-	void deletaAluno(@Param("id") Long id);
 
 	@Query("FROM Aluno a WHERE a.modificacao > :datahora")
 	List<Aluno> alunosModificados(@Param("datahora") LocalDateTime datahora);
 
-	@Query("FROM Aluno a WHERE a.ativo = 1")
+	@Query("FROM Aluno a WHERE a.desativado = 0")
 	List<Aluno> alunosVisiveis();
+
+	@Query("SELECT COUNT(a) > 0 FROM Aluno a WHERE a.modificacao > :datahora")
+	boolean existeAtualizacao(@Param("datahora") LocalDateTime datahora);
 }

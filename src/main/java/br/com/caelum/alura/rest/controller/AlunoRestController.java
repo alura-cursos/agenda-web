@@ -3,8 +3,8 @@ package br.com.caelum.alura.rest.controller;
 import static br.com.caelum.alura.utils.HTTPValues.JSON;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.PATCH;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,36 +41,63 @@ public class AlunoRestController {
 		return alunoService.getSyncLista();
 	}
 
-	@RequestMapping(value = "{id}", method = GET, produces = JSON)
-	public @ResponseBody AlunoSync busca(@PathVariable("id") Long id) {
-		return new AlunoSync(alunoService.getAluno(id));
+	@RequestMapping(method = POST, consumes = JSON, produces = JSON)
+	public @ResponseBody AlunoSync insereNovo(@RequestBody Aluno aluno,
+			@RequestHeader(value = "datahora", required = false) String datahora) {
+		String id = alunoService.salvar(aluno);
+		return verificaAtualizacao(alunoService.busca(id), datahora);
 	}
 
-	@RequestMapping(method = POST, consumes = JSON, produces = JSON)
-	public @ResponseBody AlunoSync insere(@RequestBody Aluno aluno) {
-		alunoService.salvar(aluno);
-		return new AlunoSync(alunoService.getUltimo());
+	@RequestMapping(value = "{id}", method = GET, produces = JSON)
+	public @ResponseBody AlunoSync busca(@PathVariable("id") String id) {
+		return new AlunoSync(alunoService.busca(id));
 	}
 
 	@RequestMapping(value = "{id}", method = DELETE)
-	public @ResponseBody ResponseEntity<AlunoSync> deleta(@PathVariable("id") Long id) {
+	public @ResponseBody ResponseEntity<AlunoSync> deleta(@PathVariable("id") String id,
+			@RequestHeader(value = "datahora", required = false) String datahora) {
 		if (alunoService.existe(id)) {
 			alunoService.deletar(id);
-			return new ResponseEntity<AlunoSync>(new AlunoSync(alunoService.getAluno(id)), HttpStatus.OK);
+			return new ResponseEntity<AlunoSync>(verificaAtualizacao(alunoService.busca(id), datahora), HttpStatus.OK);
 		}
-		return new ResponseEntity<AlunoSync>(new AlunoSync(new ArrayList<>()), HttpStatus.FORBIDDEN);
+		return new ResponseEntity<AlunoSync>(verificaAtualizacao(new ArrayList<>(), datahora), HttpStatus.FORBIDDEN);
 	}
 
-	@RequestMapping(method = PATCH, consumes = JSON, produces = JSON)
-	public @ResponseBody AlunoSync altera(@RequestBody Aluno aluno) {
-		alunoService.salvar(aluno);
-		List<Aluno> alunos = new ArrayList<>(Arrays.asList(alunoService.getAluno(aluno.getId())));
-		return new AlunoSync(alunos);
+	@RequestMapping(value = "{id}", method = PUT, consumes = JSON, produces = JSON)
+	public @ResponseBody AlunoSync insereOuAltera(@PathVariable("id") String id, @RequestBody Aluno aluno,
+			@RequestHeader(value = "datahora", required = false) String datahora) {
+		aluno.setId(id);
+		String idSalvo = alunoService.salvar(aluno);
+		List<Aluno> alunos = new ArrayList<>(Arrays.asList(alunoService.busca(idSalvo)));
+		return verificaAtualizacao(alunos, datahora);
+	}
+
+	@RequestMapping(value = "lista", method = PUT, consumes = JSON, produces = JSON)
+	public @ResponseBody AlunoSync insereOuAlteraLista(@RequestBody List<Aluno> alunos,
+			@RequestHeader(value = "datahora", required = false) String datahora) {
+		List<Aluno> alunosSalvos = alunoService.salvar(alunos);
+		return verificaAtualizacao(alunosSalvos, datahora);
 	}
 
 	@RequestMapping(value = "diff", method = GET, produces = JSON)
 	public @ResponseBody AlunoSync alteracoes(@RequestHeader("datahora") String datahora) {
 		return alunoService.novosRegistro(LocalDateTime.parse(datahora));
+	}
+
+	private AlunoSync verificaAtualizacao(Aluno aluno, String datahora) {
+		if (datahora != null && alunoService.temAtualizacao(datahora)) {
+			return new AlunoSync(aluno, datahora);
+		} else {
+			return new AlunoSync(aluno);
+		}
+	}
+
+	private AlunoSync verificaAtualizacao(List<Aluno> alunos, String datahora) {
+		if (datahora != null && alunoService.temAtualizacao(datahora)) {
+			return new AlunoSync(alunos, datahora);
+		} else {
+			return new AlunoSync(alunos);
+		}
 	}
 
 }

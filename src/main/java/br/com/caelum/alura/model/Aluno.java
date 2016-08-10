@@ -2,10 +2,9 @@ package br.com.caelum.alura.model;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.joda.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,8 +15,8 @@ import br.com.caelum.alura.converter.LocalDateTimeConverter;
 public class Aluno {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GenericGenerator(name = "id", strategy = "uuid2")
+	private String id;
 	private String nome;
 	private String endereco;
 	private String telefone;
@@ -27,13 +26,13 @@ public class Aluno {
 	@JsonIgnore
 	@Convert(converter = LocalDateTimeConverter.class)
 	private LocalDateTime modificacao;
-	private int ativo = 1;
+	private int desativado;
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -89,12 +88,12 @@ public class Aluno {
 		this.modificacao = LocalDateTime.now();
 	}
 
-	public int getAtivo() {
-		return ativo;
+	public int getDesativado() {
+		return desativado;
 	}
 
-	public void setAtivo(int ativo) {
-		this.ativo = ativo;
+	public void setDesativado(int desativado) {
+		this.desativado = desativado;
 	}
 
 	@Override

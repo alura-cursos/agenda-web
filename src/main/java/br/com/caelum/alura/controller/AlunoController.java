@@ -30,9 +30,9 @@ public class AlunoController {
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ModelAndView alterar(@PathVariable("id") Long id) {
+	public ModelAndView alterar(@PathVariable("id") String id) {
 		if (alunoService.existe(id)) {
-			Aluno aluno = alunoService.getAluno(id);
+			Aluno aluno = alunoService.busca(id);
 			return prepararAlunoPraForm(aluno);
 		}
 		return new ModelAndView("redirect:aluno");
