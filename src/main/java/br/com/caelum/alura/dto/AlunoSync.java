@@ -11,34 +11,34 @@ import br.com.caelum.alura.model.Aluno;
 public class AlunoSync {
 
 	private final List<Aluno> alunos;
-	private final String datahora;
+	private final String momentoDaUltimaModificacao;
 
 	public AlunoSync(List<Aluno> alunos) {
 		this.alunos = alunos;
-		this.datahora = LocalDateTime.now().toString();
+		this.momentoDaUltimaModificacao = LocalDateTime.now().toString();
 	}
 
 	public AlunoSync(Aluno aluno) {
 		this.alunos = new ArrayList<>(Arrays.asList(aluno));
-		this.datahora = LocalDateTime.now().toString();
+		this.momentoDaUltimaModificacao = LocalDateTime.now().toString();
 	}
 
 	public AlunoSync(List<Aluno> alunos, String datahora) {
 		this.alunos = alunos;
-		this.datahora = datahora;
+		this.momentoDaUltimaModificacao = datahora;
 	}
 
 	public AlunoSync(Aluno aluno, String datahora) {
 		this.alunos = new ArrayList<>(Arrays.asList(aluno));
-		this.datahora = datahora;
+		this.momentoDaUltimaModificacao = datahora;
 	}
 
 	public List<Aluno> getAlunos() {
 		return alunos;
 	}
 
-	public String getDatahora() {
-		return datahora;
+	public String getMomentoDaUltimaModificacao() {
+		return momentoDaUltimaModificacao;
 	}
 
 }

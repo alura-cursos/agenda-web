@@ -8,25 +8,25 @@
 
 <html:header title="Cadastro"></html:header>
 
-<h1 class="header center ">Cadastro de aluno</h1>
-
-<div class="row">
-	<form:form action="${actionUrl}" commandName="aluno" class="col s12">
-		<c:if test="${aluno.id != null }">
-			<form:input type="hidden" path="id" value="${aluno.id }"></form:input>
-		</c:if>
-		<html:input label="Nome" name="nome" />
-		<html:input label="Endereço" name="endereco" />
-		<html:input label="Telefone" name="telefone" />
-		<html:input label="Site" name="site" />
-		<div class="input-field col s12">
+<form:form action="${actionUrl}" commandName="aluno" class="col s12">
+	<c:if test="${aluno.id != null }">
+		<form:input type="hidden" path="id" value="${aluno.id }"></form:input>
+	</c:if>
+	<div class="row">
+		<html:input-metade label="Nome" name="nome" />
+		<div class="input-field col s6">
 			<form:select path="nota">
 				<form:options items="${notas}" />
 			</form:select>
 			<label for="nota">Nota</label>
 		</div>
-		<form:button class="btn waves-effect waves-light">Cadastrar</form:button>
-	</form:form>
+	</div>
+	<html:input label="Endereço" name="endereco" />
+	<html:input label="Telefone" name="telefone" />
+	<html:input label="Site" name="site" />
+
+	<form:button class="btn waves-effect waves-light">Cadastrar</form:button>
+</form:form>
 </div>
 
 

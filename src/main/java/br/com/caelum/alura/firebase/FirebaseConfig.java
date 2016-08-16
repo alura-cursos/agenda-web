@@ -54,7 +54,7 @@ public class FirebaseConfig {
 		return firebaseConfig;
 	}
 
-	public void salvarProperties() throws IOException {
+	public void salvaProperties() throws IOException {
 		Resource resource = new ClassPathResource("/firebase.properties");
 		Properties prop = PropertiesLoaderUtils.loadProperties(resource);
 		prop.put("firebase.apikey", apikey);

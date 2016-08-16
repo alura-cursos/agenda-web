@@ -26,7 +26,7 @@ import br.com.caelum.alura.model.Aluno;
 import br.com.caelum.alura.service.AlunoService;
 
 @RestController
-@RequestMapping("v1/aluno")
+@RequestMapping("api/aluno")
 public class AlunoRestController {
 
 	private AlunoService alunoService;
@@ -42,10 +42,12 @@ public class AlunoRestController {
 	}
 
 	@RequestMapping(method = POST, consumes = JSON, produces = JSON)
-	public @ResponseBody AlunoSync insereNovo(@RequestBody Aluno aluno,
+	public @ResponseBody AlunoSync insere(@RequestBody Aluno aluno,
 			@RequestHeader(value = "datahora", required = false) String datahora) {
-		String id = alunoService.salvar(aluno);
-		return verificaAtualizacao(alunoService.busca(id), datahora);
+		boolean temAtualizacao = alunoService.temAtualizacao(datahora);
+		String id = alunoService.salva(aluno);
+		Aluno salvo = alunoService.busca(id);
+		return sincronizaDataHora(temAtualizacao, salvo, datahora);
 	}
 
 	@RequestMapping(value = "{id}", method = GET, produces = JSON)
@@ -54,29 +56,39 @@ public class AlunoRestController {
 	}
 
 	@RequestMapping(value = "{id}", method = DELETE)
-	public @ResponseBody ResponseEntity<AlunoSync> deleta(@PathVariable("id") String id,
+	public @ResponseBody ResponseEntity<AlunoSync> remove(@PathVariable("id") String id,
 			@RequestHeader(value = "datahora", required = false) String datahora) {
+		boolean temAtualizacao = alunoService.temAtualizacao(datahora);
 		if (alunoService.existe(id)) {
-			alunoService.deletar(id);
-			return new ResponseEntity<AlunoSync>(verificaAtualizacao(alunoService.busca(id), datahora), HttpStatus.OK);
+			alunoService.remove(id);
+			return new ResponseEntity<AlunoSync>(sincronizaDataHora(temAtualizacao, alunoService.busca(id), datahora),
+					HttpStatus.OK);
 		}
-		return new ResponseEntity<AlunoSync>(verificaAtualizacao(new ArrayList<>(), datahora), HttpStatus.FORBIDDEN);
+		return new ResponseEntity<AlunoSync>(sincronizaDataHora(temAtualizacao, new Aluno(), datahora),
+				HttpStatus.FORBIDDEN);
 	}
 
 	@RequestMapping(value = "{id}", method = PUT, consumes = JSON, produces = JSON)
 	public @ResponseBody AlunoSync insereOuAltera(@PathVariable("id") String id, @RequestBody Aluno aluno,
 			@RequestHeader(value = "datahora", required = false) String datahora) {
+		boolean temAtualizacao = alunoService.temAtualizacao(datahora);
 		aluno.setId(id);
-		String idSalvo = alunoService.salvar(aluno);
+		String idSalvo = alunoService.salva(aluno);
 		List<Aluno> alunos = new ArrayList<>(Arrays.asList(alunoService.busca(idSalvo)));
-		return verificaAtualizacao(alunos, datahora);
+		return sincronizaDataHora(temAtualizacao, alunos, datahora);
 	}
 
 	@RequestMapping(value = "lista", method = PUT, consumes = JSON, produces = JSON)
-	public @ResponseBody AlunoSync insereOuAlteraLista(@RequestBody List<Aluno> alunos,
+	public @ResponseBody ResponseEntity<AlunoSync> insereOuAlteraLista(@RequestBody List<Aluno> alunos,
 			@RequestHeader(value = "datahora", required = false) String datahora) {
-		List<Aluno> alunosSalvos = alunoService.salvar(alunos);
-		return verificaAtualizacao(alunosSalvos, datahora);
+		boolean temAtualizacao = alunoService.temAtualizacao(datahora);
+		List<Aluno> alunosSalvos = new ArrayList<>();
+		try {
+			alunosSalvos = alunoService.salva(alunos);
+		} catch (IllegalArgumentException e) {
+			return new ResponseEntity<AlunoSync>(new AlunoSync(alunosSalvos, datahora), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<AlunoSync>(sincronizaDataHora(temAtualizacao, alunosSalvos, datahora), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "diff", method = GET, produces = JSON)
@@ -84,20 +96,12 @@ public class AlunoRestController {
 		return alunoService.novosRegistro(LocalDateTime.parse(datahora));
 	}
 
-	private AlunoSync verificaAtualizacao(Aluno aluno, String datahora) {
-		if (datahora != null && alunoService.temAtualizacao(datahora)) {
-			return new AlunoSync(aluno, datahora);
-		} else {
-			return new AlunoSync(aluno);
-		}
+	private AlunoSync sincronizaDataHora(boolean temAtualizacao, List<Aluno> alunos, String datahora) {
+		return temAtualizacao ? new AlunoSync(alunos, datahora) : new AlunoSync(alunos);
 	}
 
-	private AlunoSync verificaAtualizacao(List<Aluno> alunos, String datahora) {
-		if (datahora != null && alunoService.temAtualizacao(datahora)) {
-			return new AlunoSync(alunos, datahora);
-		} else {
-			return new AlunoSync(alunos);
-		}
+	private AlunoSync sincronizaDataHora(boolean temAtualizacao, Aluno aluno, String datahora) {
+		return temAtualizacao ? new AlunoSync(aluno, datahora) : new AlunoSync(aluno);
 	}
 
 }

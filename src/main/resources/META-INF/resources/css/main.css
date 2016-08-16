@@ -1,16 +1,40 @@
 @CHARSET "UTF-8";
 
+body {
+	font-family: 'Open Sans', sans-serif;
+	background: #f1f3f4;
+}
+
+.main-botao{
+	height: 250px;
+	width: 250px;
+}
+
+h1, h2 {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.main-title {
+	font-weight: bold;
+	font-size: 3em;
+	color: #363c3c;
+}
+
+.main-nav li a{
+	color: #363c3c;
+}
+
 #logo-header {
-	max-height: 50px;
-	margin: 5%;
+	height: 40px;
+	margin: 13%;
 }
 
 @media ( max-width : 600px) {
 	#logo-header {
-		max-height: 45px;
+		height: 35px;
 	}
 }
 
 i.icon-white {
-    color: #fff;
+	color: #fff;
 }

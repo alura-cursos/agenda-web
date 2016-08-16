@@ -26,19 +26,19 @@ public class AlunoController {
 
 	@RequestMapping("form")
 	public ModelAndView form(Aluno aluno) {
-		return prepararAlunoPraForm(aluno);
+		return preparaAlunoParaForm(aluno);
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ModelAndView alterar(@PathVariable("id") String id) {
-		if (alunoService.existe(id)) {
-			Aluno aluno = alunoService.busca(id);
-			return prepararAlunoPraForm(aluno);
+	public ModelAndView busca(@PathVariable("id") String id) {
+		Aluno aluno = alunoService.busca(id);
+		if (aluno == null) {
+			return new ModelAndView("redirect:aluno");
 		}
-		return new ModelAndView("redirect:aluno");
+		return preparaAlunoParaForm(aluno);
 	}
 
-	private ModelAndView prepararAlunoPraForm(Aluno aluno) {
+	private ModelAndView preparaAlunoParaForm(Aluno aluno) {
 		ModelAndView mav = new ModelAndView("aluno/formulario");
 		mav.addObject("aluno", aluno);
 		mav.addObject("notas", AlunoUtils.POSSIVEIS_NOTAS);
@@ -46,14 +46,14 @@ public class AlunoController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String salvar(@ModelAttribute("aluno") Aluno aluno, RedirectAttributes attributes) {
-		alunoService.salvar(aluno);
+	public String salva(@ModelAttribute("aluno") Aluno aluno, RedirectAttributes attributes) {
+		alunoService.salva(aluno);
 		attributes.addFlashAttribute("info", "aluno salvo");
 		return "redirect:aluno";
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView listar() {
+	public ModelAndView lista() {
 		return new ModelAndView("aluno/lista", "alunos", alunoService.getLista());
 	}
 

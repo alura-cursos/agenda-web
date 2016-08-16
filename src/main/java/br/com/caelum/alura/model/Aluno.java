@@ -23,10 +23,10 @@ public class Aluno {
 	private String site;
 	private Double nota;
 	private String caminhoFoto;
+	private int desativado;
 	@JsonIgnore
 	@Convert(converter = LocalDateTimeConverter.class)
 	private LocalDateTime modificacao;
-	private int desativado;
 
 	public String getId() {
 		return id;
@@ -84,16 +84,20 @@ public class Aluno {
 		this.caminhoFoto = caminhoFoto;
 	}
 
-	public void alunoModificado() {
+	public void modificado() {
 		this.modificacao = LocalDateTime.now();
+	}
+
+	public LocalDateTime getModificacao() {
+		return modificacao;
 	}
 
 	public int getDesativado() {
 		return desativado;
 	}
 
-	public void setDesativado(int desativado) {
-		this.desativado = desativado;
+	public void desativa() {
+		this.desativado = 1;
 	}
 
 	@Override
@@ -110,6 +114,13 @@ public class Aluno {
 		if (aluno.id == this.id)
 			return true;
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Aluno [id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", telefone=" + telefone + ", site="
+				+ site + ", nota=" + nota + ", caminhoFoto=" + caminhoFoto + ", desativado=" + desativado
+				+ ", modificacao=" + modificacao + "]";
 	}
 
 }

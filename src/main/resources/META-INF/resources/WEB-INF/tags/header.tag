@@ -33,6 +33,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <link href="/img/favicon.ico" rel="shortcut icon">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
 <script src="${jsPath}/jquery.js"></script>
 <script src="${jsPath}/materialize.min.js"></script>
 <script src="${jsPath}/inicializer.js"></script>
@@ -47,17 +48,17 @@
 	<header class="header">
 		<div class="navbar-fixed">
 			<nav>
-				<div class="nav-wrapper black z-depth-3">
-					<a href="${index}" class="brand-logo"><img id="logo-header"
-						src="<c:url value='/img/alura-logo-white.png'></c:url>"></a> <a
-						href="#" data-activates="mobile-demo" class="button-collapse"><i
-						class="material-icons">menu</i></a>
-					<ul class="right hide-on-med-and-down">
+				<div class="nav-wrapper white">
+					<a href="${index}" class="brand-logo"> <img id="logo-header"
+						src="<c:url value='/img/logo-alura.svg'></c:url>">
+					</a> <a href="#" data-activates="mobile-demo" class="button-collapse"><i
+						class="material-icons ">menu</i></a>
+					<ul class="right hide-on-med-and-down main-nav">
 						<li><a href="${cadastro}">Cadastro</a></li>
 						<li><a href="${firebase}">Firebase</a></li>
 						<li><a href="${lista}">Lista</a></li>
 					</ul>
-					<ul class="side-nav" id="mobile-demo">
+					<ul class="side-nav main-nav" id="mobile-demo">
 						<li><a href="${cadastro}">Cadastro</a></li>
 						<li><a href="${firebase}">Firebase</a></li>
 						<li><a href="${lista}">Lista</a></li>
@@ -67,3 +68,5 @@
 		</div>
 	</header>
 	<main class="container">
+	<h2 class="main-title center">${title }</h2>
+	<br />
