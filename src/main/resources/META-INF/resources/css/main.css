@@ -5,6 +5,10 @@ body {
 	background: #f1f3f4;
 }
 
+.icon-font-default-color{
+	color: #363c3c;
+}
+
 .main-botao{
 	height: 250px;
 	width: 250px;
@@ -29,9 +33,16 @@ h1, h2 {
 	margin: 13%;
 }
 
+@media ( max-width : 992px) {
+	#logo-header {
+		margin: 13% 5%;
+	}
+}
+
 @media ( max-width : 600px) {
 	#logo-header {
 		height: 35px;
+		margin: 14% 5%;
 	}
 }
 

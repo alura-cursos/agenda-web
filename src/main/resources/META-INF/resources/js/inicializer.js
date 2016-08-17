@@ -1,10 +1,10 @@
-$(function(){
+$(function() {
 	// inicilizando o select do materializecss
 	$(document).ready(function() {
 		$('select').material_select();
 	});
 })
 
-$(function(){
+$(function() {
 	$(".button-collapse").sideNav();
 });

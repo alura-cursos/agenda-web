@@ -13,7 +13,7 @@ import br.com.caelum.alura.model.Dispositivo;
 import br.com.caelum.alura.service.DispositivoService;
 
 @Controller
-@RequestMapping("v1/firebase")
+@RequestMapping("api/firebase")
 public class FirebaseRestController {
 
 	private DispositivoService dispositivoService;

@@ -109,8 +109,8 @@ public class AlunoService {
 	}
 
 	private void geraIdSeForNuloOuInvalido(Aluno aluno) {
-		LOGGER.info("validando id");
 		String uuid = aluno.getId();
+		LOGGER.info("validando id: " + uuid);
 		if (aluno.getId() == null || !uuidUtils.ehValido(uuid)) {
 			LOGGER.info("gerando novo id");
 			aluno.setId(uuidUtils.geraUUIDAleatorio());

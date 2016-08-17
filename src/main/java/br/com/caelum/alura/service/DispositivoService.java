@@ -18,7 +18,7 @@ import br.com.caelum.alura.repository.DispositivoRepository;
 public class DispositivoService {
 
 	private final DispositivoRepository dispositivoRepository;
-	private static final Logger LOGGER = Logger.getLogger(AlunoService.class);
+	private static final Logger LOGGER = Logger.getLogger(DispositivoService.class);
 
 	@Autowired
 	public DispositivoService(DispositivoRepository dispositivoRepository) {
@@ -32,18 +32,16 @@ public class DispositivoService {
 
 	@Async
 	public void enviaNotificacao(List<Aluno> alunos) {
-		logaAlunos("enviando alunos", alunos);
-
 		List<Dispositivo> dispositivos = (List<Dispositivo>) dispositivoRepository.findAll();
-		try {
-			FirebaseSender firebaseSender = new FirebaseSender(this);
-			firebaseSender.envia(dispositivos, new AlunoSync(alunos));
-
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (dispositivos != null && !dispositivos.isEmpty()) {
+			logaAlunos("enviando alunos: ", alunos);
+			try {
+				FirebaseSender firebaseSender = new FirebaseSender(this);
+				firebaseSender.envia(dispositivos, new AlunoSync(alunos));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-
-		logaAlunos("alunos enviados com sucesso", alunos);
 	}
 
 	public void deleta(List<Dispositivo> invalidos) {

@@ -15,21 +15,21 @@
 		<div class="col s12 m4 l4  waves-effect waves-light">
 			<div class="card-panel hoverable z-depth-1 center">
 				<i class="large material-icons ">perm_identity </i>
-				<div class="header ">Cadastro de aluno</div>
+				<div class="truncate">Cadastro de aluno</div>
 			</div>
 		</div>
 	</a> <a href="${configuracao_firebase}">
 		<div class="col s12 m4 l4  waves-effect waves-light ">
 			<div class="card-panel hoverable z-depth-1 center ">
 				<i class="large material-icons ">settings </i>
-				<div class="header ">Configuração do Firebase</div>
+				<div class="truncate">Configuração do Firebase</div>
 			</div>
 		</div>
 	</a> <a href="${lista}">
 		<div class="col s12 m4 l4 waves-effect waves-light">
 			<div class="card-panel hoverable z-depth-1 center">
-				<i class="large material-icons ">list </i>
-				<div class="header ">Lista de alunos</div>
+				<i class="large material-icons ">list</i>
+				<div class="truncate">Lista de alunos</div>
 			</div>
 		</div>
 	</a>

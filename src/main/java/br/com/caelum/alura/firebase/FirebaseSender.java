@@ -36,9 +36,10 @@ public class FirebaseSender extends FirebaseClient {
 			String json = mapper.writeValueAsString(mensagem);
 			Request request = criaRequisicaoParaPost(json);
 			Response response = client.newCall(request).execute();
-			if (ehInvalido(response))
+			if (ehInvalido(response)) {
+				LOGGER.error("falha no firebase " + response.body().string());
 				invalidos.add(dispositivo);
-			else
+			} else
 				LOGGER.info("resposta do firebase " + response.body().string());
 			response.close();
 		}

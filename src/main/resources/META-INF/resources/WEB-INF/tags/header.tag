@@ -52,7 +52,7 @@
 					<a href="${index}" class="brand-logo"> <img id="logo-header"
 						src="<c:url value='/img/logo-alura.svg'></c:url>">
 					</a> <a href="#" data-activates="mobile-demo" class="button-collapse"><i
-						class="material-icons ">menu</i></a>
+						class="material-icons icon-font-default-color">menu</i></a>
 					<ul class="right hide-on-med-and-down main-nav">
 						<li><a href="${cadastro}">Cadastro</a></li>
 						<li><a href="${firebase}">Firebase</a></li>
