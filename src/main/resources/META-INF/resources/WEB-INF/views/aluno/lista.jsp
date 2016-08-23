@@ -15,17 +15,23 @@
 	</script>
 </c:if>
 
-<c:if test="${alunos.size() > 0}">
-	<ul class="collection">
-		<c:forEach items="${alunos}" var="aluno">
-			<html:avatar aluno="${aluno}" />
-		</c:forEach>
-	</ul>
-</c:if>
+<c:choose>
+	<c:when test="${alunos.size() > 0}">
+		<ul class="collection">
+			<c:forEach items="${alunos}" var="aluno">
+				<html:avatar aluno="${aluno}" />
+			</c:forEach>
+		</ul>
+	</c:when>
+	<c:otherwise>
+		<h4 class="center">Nenhum aluno cadastrado</h4>
+	</c:otherwise>
+</c:choose>
 
 <div class="fixed-action-btn horizontal"
 	style="bottom: 45px; right: 40px;">
-	<a href="${form }" class="btn-floating btn-large red waves-effect waves-light"> <i
+	<a href="${form }"
+		class="btn-floating btn-large red waves-effect waves-light"> <i
 		class="large material-icons">add</i>
 	</a>
 </div>

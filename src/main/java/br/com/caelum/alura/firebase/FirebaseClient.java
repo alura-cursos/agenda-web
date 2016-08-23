@@ -22,10 +22,9 @@ public class FirebaseClient {
 	private String URL;
 	private String API_KEY;
 
-	public FirebaseClient() throws IOException {
-		FirebaseConfig firebaseConfig = FirebaseConfig.getInstance();
-		URL = firebaseConfig.getURL();
-		API_KEY = firebaseConfig.getApikey();
+	public FirebaseClient(FirebaseConfig config) throws IOException {
+		URL = config.getURL();
+		API_KEY = config.getApikey();
 	}
 
 	protected Request criaRequisicaoParaPost(String json) {

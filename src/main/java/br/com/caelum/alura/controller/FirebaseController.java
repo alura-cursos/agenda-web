@@ -28,13 +28,13 @@ public class FirebaseController {
 
 	@RequestMapping(method = GET)
 	public ModelAndView config() throws IOException {
-		return new ModelAndView("firebase/configuracao", "config", FirebaseConfig.getInstance());
+		return new ModelAndView("firebase/configuracao", "config", firebaseService.getConfig());
 	}
 
 	@RequestMapping(method = POST)
 	public String config(@ModelAttribute("config") FirebaseConfig config, RedirectAttributes attributes)
 			throws IOException {
-		config.salvaProperties();
+		firebaseService.salva(config);
 		if (firebaseService.tokenValido()) {
 			attributes.addFlashAttribute("sucesso", "Firebase configurado");
 		} else {

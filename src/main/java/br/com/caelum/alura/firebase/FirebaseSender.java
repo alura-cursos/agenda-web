@@ -21,8 +21,8 @@ public class FirebaseSender extends FirebaseClient {
 	private DispositivoService dispositivoService;
 	private final static Logger LOGGER = Logger.getLogger(FirebaseSender.class);
 
-	public FirebaseSender(DispositivoService dispositivoService) throws IOException {
-		super();
+	public FirebaseSender(DispositivoService dispositivoService, FirebaseConfig config) throws IOException {
+		super(config);
 		this.dispositivoService = dispositivoService;
 	}
 

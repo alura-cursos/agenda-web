@@ -1,15 +1,13 @@
 package br.com.caelum.alura.firebase;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Properties;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PropertiesLoaderUtils;
-
+@Entity
 public class FirebaseConfig {
 
+	@Id
+	private Long id;
 	private String URL;
 	private String apikey;
 
@@ -21,45 +19,24 @@ public class FirebaseConfig {
 		this.apikey = apikey;
 	}
 
-	public String getURL() throws IOException {
-		Resource resource = new ClassPathResource("/firebase.properties");
-		Properties prop = PropertiesLoaderUtils.loadProperties(resource);
-		return (String) prop.getProperty("firebase.url");
-	}
-
 	public void setURL(String URL) {
 		this.URL = URL;
 	}
 
-	public String getApikey() throws IOException {
-		Resource resource = new ClassPathResource("/firebase.properties");
-		Properties prop = PropertiesLoaderUtils.loadProperties(resource);
-		return (String) prop.getProperty("firebase.apikey");
+	public String getURL() {
+		return URL;
+	}
+
+	public String getApikey() {
+		return apikey;
 	}
 
 	public void setApikey(String apikey) {
 		this.apikey = apikey;
 	}
 
-	public static FirebaseConfig getInstance() {
-		FirebaseConfig firebaseConfig = new FirebaseConfig();
-		try {
-			Resource resource = new ClassPathResource("/firebase.properties");
-			Properties prop = PropertiesLoaderUtils.loadProperties(resource);
-			firebaseConfig.setApikey(prop.getProperty("firebase.apikey"));
-			firebaseConfig.setURL(prop.getProperty("firebase.url"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return firebaseConfig;
-	}
-
-	public void salvaProperties() throws IOException {
-		Resource resource = new ClassPathResource("/firebase.properties");
-		Properties prop = PropertiesLoaderUtils.loadProperties(resource);
-		prop.put("firebase.apikey", apikey);
-		prop.put("firebase.url", URL);
-		prop.store(new FileOutputStream(resource.getFile()), "");
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

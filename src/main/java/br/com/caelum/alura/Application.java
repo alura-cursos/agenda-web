@@ -13,12 +13,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+		
 	}	
 }
-
-//dar uns infos das cpoisas acontecendo... log....
-//	- requisicao web recebida
-//	- requisicao pŕo firebase... cuspir que esta acontecendo e cuspir a msg de resṕosta, cuidado com catch
-//	- requisicao vinda do firebase
-//	- org.apache, hibernate, spring -> warn. log4j.xml
-	

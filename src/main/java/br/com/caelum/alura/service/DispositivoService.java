@@ -19,10 +19,12 @@ public class DispositivoService {
 
 	private final DispositivoRepository dispositivoRepository;
 	private static final Logger LOGGER = Logger.getLogger(DispositivoService.class);
+	private FirebaseService firebaseService;
 
 	@Autowired
-	public DispositivoService(DispositivoRepository dispositivoRepository) {
+	public DispositivoService(DispositivoRepository dispositivoRepository, FirebaseService firebaseService) {
 		this.dispositivoRepository = dispositivoRepository;
+		this.firebaseService = firebaseService;
 	}
 
 	public void salva(Dispositivo dispositivo) {
@@ -36,7 +38,7 @@ public class DispositivoService {
 		if (dispositivos != null && !dispositivos.isEmpty()) {
 			logaAlunos("enviando alunos: ", alunos);
 			try {
-				FirebaseSender firebaseSender = new FirebaseSender(this);
+				FirebaseSender firebaseSender = new FirebaseSender(this, firebaseService.getConfig());
 				firebaseSender.envia(dispositivos, new AlunoSync(alunos));
 			} catch (IOException e) {
 				e.printStackTrace();
