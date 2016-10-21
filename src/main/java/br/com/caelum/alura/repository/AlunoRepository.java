@@ -19,4 +19,7 @@ public interface AlunoRepository extends PagingAndSortingRepository<Aluno, Strin
 
 	@Query("SELECT COUNT(a) > 0 FROM Aluno a WHERE a.modificacao > :datahora")
 	boolean existeAtualizacao(@Param("datahora") LocalDateTime datahora);
+
+	@Query("SELECT COUNT(a) > 0 FROM Aluno a WHERE a.idCliente = :idCliente")
+	boolean existeIdCliente(@Param("idCliente") int idCliente);
 }

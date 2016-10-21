@@ -6,9 +6,11 @@
 <html:header styles="materialize.css" scripts="materialize.js"
 	title="Agenda de alunos"></html:header>
 
-<c:url value="/aluno" var="lista"></c:url>
-<c:url value="/firebase" var="configuracao_firebase"></c:url>
-<c:url value="/aluno/form" var="cadastro"></c:url>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set value="${contextPath }/aluno" var="lista" />
+<c:set value="${contextPath }/firebase" var="configuracao_firebase" />
+<c:set value="${contextPath }/aluno/form" var="cadastro" />
 
 <div class="row center">
 	<a href="${cadastro}">

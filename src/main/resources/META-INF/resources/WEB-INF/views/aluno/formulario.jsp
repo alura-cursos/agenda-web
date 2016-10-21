@@ -4,7 +4,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:url value='/aluno' var="actionUrl" />
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set value='${contextPath }/aluno' var="actionUrl" />
 
 <html:header title="Cadastro"></html:header>
 
@@ -24,6 +25,7 @@
 	<html:input label="Endereço" name="endereco" />
 	<html:input label="Telefone" name="telefone" />
 	<html:input label="Site" name="site" />
+	<input type="hidden" value="0" name="idCliente" />
 
 	<form:button class="btn waves-effect waves-light">Cadastrar</form:button>
 </form:form>

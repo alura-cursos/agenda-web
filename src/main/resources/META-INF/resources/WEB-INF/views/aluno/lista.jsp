@@ -3,7 +3,8 @@
 <%@taglib prefix="html" tagdir="/WEB-INF/tags/"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:url value="/aluno/form" var='form'></c:url>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set value="${contextPath }/aluno/form" var='form' />
 
 <html:header scripts="aluno/deletar_aluno.js"
 	styles="aluno/lista_aluno.css" title="Alunos">
@@ -24,7 +25,7 @@
 		</ul>
 	</c:when>
 	<c:otherwise>
-		<h4 class="center">Nenhum aluno cadastrado</h4>
+		<h4 class="center">Nenhum aluno cadastrado.</h4>
 	</c:otherwise>
 </c:choose>
 

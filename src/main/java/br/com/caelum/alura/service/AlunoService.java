@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.log4j.Logger;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import br.com.caelum.alura.dto.AlunoSync;
 import br.com.caelum.alura.model.Aluno;
@@ -31,12 +32,21 @@ public class AlunoService {
 	}
 
 	public String salva(Aluno aluno) {
+		if (existeCliente(aluno)) {
+			throw new IllegalArgumentException("id de cliente já existente");
+		}
 		aluno.modificado();
 		geraIdSeForNuloOuInvalido(aluno);
 		alunoRepository.save(aluno);
 		LOGGER.info("aluno salvo " + aluno.getId());
 		notificaAlteracao(aluno);
 		return aluno.getId();
+	}
+
+	private boolean existeCliente(Aluno aluno) {
+		if (aluno.getIdCliente() == 0)
+			return false;
+		return alunoRepository.existeIdCliente(aluno.getIdCliente());
 	}
 
 	@Transactional
@@ -62,6 +72,7 @@ public class AlunoService {
 	@Transactional
 	public void remove(String id) {
 		Aluno aluno = busca(id);
+		aluno.setIdCliente(0);
 		aluno.desativa();
 		aluno.modificado();
 		LOGGER.info("aluno removido " + id);

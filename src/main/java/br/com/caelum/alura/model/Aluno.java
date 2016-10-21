@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.joda.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import br.com.caelum.alura.converter.LocalDateTimeConverter;
 
@@ -27,6 +28,12 @@ public class Aluno {
 	@JsonIgnore
 	@Convert(converter = LocalDateTimeConverter.class)
 	private LocalDateTime modificacao;
+	@JsonProperty("idCliente")
+	private int idCliente;
+
+	public int getIdCliente() {
+		return idCliente;
+	}
 
 	public String getId() {
 		return id;
@@ -121,6 +128,10 @@ public class Aluno {
 		return "Aluno [id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", telefone=" + telefone + ", site="
 				+ site + ", nota=" + nota + ", caminhoFoto=" + caminhoFoto + ", desativado=" + desativado
 				+ ", modificacao=" + modificacao + "]";
+	}
+
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
 	}
 
 }
